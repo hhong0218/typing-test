@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typing Speed Test — Free Online WPM Test | TypeTest</title>
+  <meta name="description" content="Free online typing speed test. Measure your WPM and accuracy in 15, 30, or 60 seconds with real English passages. No signup — runs entirely in your browser.">
+  <meta name="keywords" content="typing speed test, wpm test, typing test online, how fast can i type, words per minute test, typing accuracy">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Typing Speed Test — Free Online WPM Test">
+  <meta property="og:description" content="Test your typing speed and accuracy in 15, 30, or 60 seconds. Free, instant, no signup. Runs in your browser.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9QKMV5JQL5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-9QKMV5JQL5');
+  </script>
+  <style>
+    :root{
+      --bg:#0f1320;--bg2:#151a2b;--panel:#1a2036;--border:#2a3252;
+      --text:#e8ecf6;--muted:#8893b4;--dim:#5a6488;
+      --accent:#7c9cff;--accent2:#a78bfa;
+      --ok:#4ade80;--err:#fb7185;--errbg:rgba(251,113,133,.18);
+      --untyped:#5a6488;--caret:#7c9cff;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{-webkit-text-size-adjust:100%}
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+      background:radial-gradient(1200px 600px at 50% -10%,#1b2340 0%,var(--bg) 55%) fixed,var(--bg);
+      color:var(--text);line-height:1.6;min-height:100vh;
+    }
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    header{
+      border-bottom:1px solid var(--border);padding:1rem 1.5rem;
+      position:sticky;top:0;background:rgba(15,19,32,.82);backdrop-filter:blur(10px);z-index:10;
+      display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+    }
+    .logo{font-size:1.3rem;font-weight:800;letter-spacing:-.02em;color:var(--text)}
+    .logo span{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+    .header-best{font-size:.85rem;color:var(--muted)}
+    .header-best b{color:var(--accent)}
+    main{max-width:920px;margin:0 auto;padding:1.5rem}
+    h1{font-size:1.8rem;line-height:1.25;margin-bottom:.4rem;letter-spacing:-.02em}
+    .lead{color:var(--muted);margin-bottom:1.5rem;font-size:1.02rem}
+
+    .ad-slot{
+      margin:1.5rem 0;min-height:90px;display:flex;align-items:center;justify-content:center;
+      color:var(--dim);font-size:.8rem;border:1px dashed var(--border);border-radius:10px;
+    }
+
+    /* Controls */
+    .controls{
+      display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;margin-bottom:1.1rem;
+    }
+    .seg{display:inline-flex;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:.25rem;gap:.25rem}
+    .seg-label{font-size:.78rem;color:var(--muted);align-self:center;margin-right:.15rem}
+    .seg button{
+      background:transparent;color:var(--muted);border:none;border-radius:7px;
+      padding:.45rem .8rem;font-size:.9rem;font-weight:600;cursor:pointer;transition:.15s;font-variant-numeric:tabular-nums;
+    }
+    .seg button:hover{color:var(--text)}
+    .seg button.active{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#0f1320}
+    .spacer{flex:1}
+    button{font-family:inherit}
+    .btn{
+      background:var(--panel);color:var(--text);border:1px solid var(--border);border-radius:9px;
+      padding:.5rem 1rem;font-size:.9rem;font-weight:600;cursor:pointer;transition:.15s;
+    }
+    .btn:hover{border-color:var(--accent);color:#fff}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#0f1320;border-color:transparent}
+    .btn.primary:hover{filter:brightness(1.07)}
+
+    /* Live stats */
+    .stats{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
+    .stat{
+      flex:1;min-width:96px;background:var(--panel);border:1px solid var(--border);
+      border-radius:12px;padding:.7rem .9rem;text-align:center;
+    }
+    .stat .num{font-size:1.7rem;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+    .stat .lbl{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:.15rem}
+    #statTime .num{color:var(--accent)}
+    #statWpm .num{color:var(--accent2)}
+    #statAcc .num{color:var(--ok)}
+
+    /* Typing area */
+    .type-wrap{position:relative}
+    .passage{
+      background:var(--panel);border:1px solid var(--border);border-radius:14px;
+      padding:1.4rem 1.5rem;font-size:1.45rem;line-height:2;letter-spacing:.01em;
+      font-family:'SFMono-Regular',ui-monospace,'Cascadia Code',Consolas,'Liberation Mono',monospace;
+      color:var(--untyped);min-height:160px;cursor:text;
+      user-select:none;-webkit-user-select:none;
+      transition:border-color .15s, box-shadow .15s;word-break:break-word;
+    }
+    .passage.focused{border-color:var(--accent);box-shadow:0 0 0 3px rgba(124,156,255,.16)}
+    .passage.blurred::after{
+      content:"Click here or start typing to focus";
+      position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+      background:rgba(15,19,32,.55);backdrop-filter:blur(2px);border-radius:14px;
+      color:var(--text);font-family:-apple-system,'Segoe UI',sans-serif;font-size:1rem;font-weight:600;
+    }
+    .passage .ch{position:relative;transition:color .05s}
+    .ch.correct{color:var(--text)}
+    .ch.incorrect{color:var(--err);background:var(--errbg);border-radius:3px}
+    .ch.incorrect.space{background:var(--errbg)}
+    /* blinking caret on the current character */
+    .ch.current::before{
+      content:"";position:absolute;left:-1px;top:.18em;bottom:.18em;width:2px;
+      background:var(--caret);border-radius:2px;animation:blink 1s steps(1) infinite;
+    }
+    .passage.blurred .ch.current::before{animation:none;opacity:.4}
+    @keyframes blink{50%{opacity:0}}
+    /* hidden input that actually captures keystrokes */
+    #hiddenInput{position:absolute;opacity:0;left:-9999px;top:0;width:1px;height:1px}
+
+    .restart-row{display:flex;justify-content:center;margin-top:1rem}
+
+    /* Result panel */
+    .result{
+      margin-top:1.2rem;background:linear-gradient(180deg,var(--bg2),var(--panel));
+      border:1px solid var(--border);border-radius:16px;padding:1.6rem;display:none;
+    }
+    .result.show{display:block;animation:rise .35s ease}
+    @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+    .result h2{font-size:1.15rem;margin-bottom:1rem;letter-spacing:-.01em}
+    .result h2 .badge{font-size:.72rem;font-weight:700;color:var(--ok);background:rgba(74,222,128,.14);padding:.15rem .5rem;border-radius:6px;margin-left:.5rem;vertical-align:middle}
+    .result-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin-bottom:1.2rem}
+    .rcell{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:.9rem;text-align:center}
+    .rcell .num{font-size:2rem;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+    .rcell .lbl{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:.35rem}
+    #rWpm{color:var(--accent2)} #rAcc{color:var(--ok)} #rChars{color:var(--accent)} #rBest{color:#fbbf24}
+    .share{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
+    .share-text{
+      flex:1;min-width:220px;background:var(--bg);border:1px dashed var(--border);
+      border-radius:9px;padding:.65rem .85rem;color:var(--muted);font-size:.92rem;
+    }
+    .toast{font-size:.82rem;color:var(--ok);min-height:1.1em;margin-top:.5rem}
+
+    /* SEO */
+    .seo{margin-top:2.8rem;border-top:1px solid var(--border);padding-top:1.6rem}
+    .seo h2{font-size:1.25rem;margin:1.4rem 0 .5rem;letter-spacing:-.01em}
+    .seo p{color:var(--muted);margin-bottom:.6rem}
+    .seo ul{color:var(--muted);margin:.2rem 0 .8rem 1.2rem}
+    .seo li{margin-bottom:.3rem}
+    .seo code{background:var(--panel);border:1px solid var(--border);border-radius:5px;padding:.05rem .35rem;font-size:.9em}
+    footer{border-top:1px solid var(--border);padding:2rem 1.5rem;text-align:center;color:var(--muted);font-size:.85rem;margin-top:3rem}
+
+    @media (max-width:640px){
+      h1{font-size:1.45rem}
+      .passage{font-size:1.18rem;line-height:1.95;padding:1.1rem 1.15rem}
+      .result-grid{grid-template-columns:repeat(2,1fr)}
+      .stat .num{font-size:1.45rem}
+      main{padding:1.1rem}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" class="logo">Type<span>Test</span></a>
+    <div class="header-best">Best: <b id="headerBest">—</b> WPM</div>
+  </header>
+
+  <main>
+    <h1>Typing Speed Test</h1>
+    <p class="lead">Find out how fast you can type. Pick a duration, start typing the passage below, and get your WPM and accuracy instantly. No signup — everything runs in your browser.</p>
+
+    <!-- AD-SLOT:Top | AdSense 승인 후 교체 -->
+    <div class="ad-slot">Advertisement</div>
+
+    <div class="controls">
+      <div class="seg" id="modeSeg">
+        <span class="seg-label">Time</span>
+        <button data-dur="15">15s</button>
+        <button data-dur="30" class="active">30s</button>
+        <button data-dur="60">60s</button>
+      </div>
+      <div class="spacer"></div>
+      <button class="btn" id="newTextBtn" title="Load a different passage">New text</button>
+    </div>
+
+    <div class="stats">
+      <div class="stat" id="statTime"><div class="num" id="numTime">30</div><div class="lbl">Seconds left</div></div>
+      <div class="stat" id="statWpm"><div class="num" id="numWpm">0</div><div class="lbl">WPM</div></div>
+      <div class="stat" id="statAcc"><div class="num" id="numAcc">100%</div><div class="lbl">Accuracy</div></div>
+    </div>
+
+    <div class="type-wrap">
+      <div id="passage" class="passage blurred" tabindex="0" aria-label="Typing passage. Click and start typing."></div>
+      <input id="hiddenInput" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-hidden="true">
+    </div>
+
+    <div class="restart-row">
+      <button class="btn primary" id="restartBtn">Restart</button>
+    </div>
+
+    <div class="result" id="result" aria-live="polite">
+      <h2>Your result <span class="badge" id="pbBadge" style="display:none">New personal best!</span></h2>
+      <div class="result-grid">
+        <div class="rcell"><div class="num" id="rWpm">0</div><div class="lbl">WPM</div></div>
+        <div class="rcell"><div class="num" id="rAcc">0%</div><div class="lbl">Accuracy</div></div>
+        <div class="rcell"><div class="num" id="rChars">0</div><div class="lbl">Characters</div></div>
+        <div class="rcell"><div class="num" id="rBest">0</div><div class="lbl">Best WPM</div></div>
+      </div>
+      <div class="share">
+        <div class="share-text" id="shareText">I typed 0 WPM with 0% accuracy.</div>
+        <button class="btn" id="copyShareBtn">Copy result</button>
+        <button class="btn primary" id="tryAgainBtn">Try again</button>
+      </div>
+      <div class="toast" id="toast"></div>
+    </div>
+
+    <!-- AD-SLOT:Bottom | AdSense 승인 후 교체 -->
+    <div class="ad-slot">Advertisement</div>
+
+    <section class="seo">
+      <h2>How to improve your typing speed</h2>
+      <p>Improving your typing speed is mostly about building muscle memory and removing bad habits. A few proven tips:</p>
+      <ul>
+        <li><strong>Use touch typing.</strong> Keep your fingers on the home row (<code>ASDF</code> for the left hand, <code>JKL;</code> for the right) and reach for each key without looking at the keyboard.</li>
+        <li><strong>Prioritize accuracy over raw speed.</strong> Every mistake costs you a backspace and breaks your rhythm. Speed naturally follows once your accuracy is consistently high.</li>
+        <li><strong>Practice in short, regular sessions.</strong> Ten focused minutes a day beats a single long session once a week.</li>
+        <li><strong>Look at the screen, not your hands.</strong> Trusting your fingers is what unlocks real speed.</li>
+        <li><strong>Warm up.</strong> Your first run of the day is usually your slowest — take a couple of tries before reading too much into a score.</li>
+      </ul>
+
+      <h2>What is WPM?</h2>
+      <p>WPM stands for <strong>words per minute</strong>. Because real words vary in length, typing tests use a standardized "word" of <strong>five characters</strong> (including spaces). So WPM is calculated as the number of characters you typed divided by five, scaled to a full minute:</p>
+      <p><code>WPM = (correct characters ÷ 5) ÷ (minutes elapsed)</code></p>
+      <p>For context, the average adult types around 40 WPM, a proficient typist is in the 65–80 WPM range, and professional typists often exceed 100 WPM. This test counts only correctly typed characters toward your WPM, so it reflects <em>usable</em> speed rather than how fast you can mash keys.</p>
+
+      <h2>How accuracy is calculated</h2>
+      <p>Accuracy is the share of your keystrokes that matched the target text. It is calculated as:</p>
+      <p><code>Accuracy = (correct characters ÷ total characters typed) × 100%</code></p>
+      <p>Every character you enter counts toward the total — including ones you later correct — so accuracy rewards getting it right the first time. A score in the high 90s is excellent; if yours drops below about 90%, slowing down slightly will usually raise both your accuracy <em>and</em> your net WPM, since you'll waste less time on corrections.</p>
+    </section>
+  </main>
+
+  <footer><p>TypeTest — a free, browser-based typing speed test. Nothing is uploaded; your results stay on your device.</p></footer>
+
+  <script>
+  (function(){
+    "use strict";
+
+    // ---- Text pool (common English words & sentences) ----
+    const TEXTS = [
+      "The quick brown fox jumps over the lazy dog while the sun sets slowly behind the quiet hills and a cool breeze drifts across the open field.",
+      "Learning to type quickly is a skill that improves with steady practice. Focus on accuracy first and let your speed grow naturally over time.",
+      "Every morning she made a cup of coffee, opened the window, and listened to the city wake up. The small ritual gave her a calm start to the day.",
+      "Technology changes the way we live and work, but the basics still matter. Clear thinking, honest effort, and a little patience go a long way.",
+      "A good book can take you anywhere. With a single page you might travel across oceans, meet strange people, and return home before dinner.",
+      "The river moved slowly under the old stone bridge. Children threw small pebbles into the water and watched the ripples spread toward the shore.",
+      "Success is rarely about luck. It is the result of many small choices made day after day, each one pushing you a little closer to your goal.",
+      "When the rain finally stopped, the streets shone under the lamplight. People stepped outside, opened their umbrellas, and went on with their evening.",
+      "Practice does not make perfect on its own. Practice with focus and honest feedback is what slowly turns a beginner into a confident expert.",
+      "The garden was full of color in the late spring. Bright flowers leaned toward the warm light while bees moved quietly from one bloom to the next.",
+      "Good writing is simple and direct. Use short words when they work, keep your sentences clear, and trust the reader to follow your idea.",
+      "He packed a small bag, locked the door, and walked to the station. The train was on time, and within an hour the city was far behind him."
+    ];
+
+    // ---- State ----
+    let duration = 30;           // seconds
+    let target = "";             // current passage text
+    let timerId = null;
+    let started = false;
+    let finished = false;
+    let startTime = 0;
+    let remaining = duration;
+    let typed = "";              // what the user has typed so far
+    let correctCount = 0;        // correct chars (current)
+    let totalCount = 0;          // total chars typed (current)
+    const BEST_KEY = "typetest_best_wpm";
+
+    // ---- Elements ----
+    const passageEl = document.getElementById('passage');
+    const hidden = document.getElementById('hiddenInput');
+    const numTime = document.getElementById('numTime');
+    const numWpm = document.getElementById('numWpm');
+    const numAcc = document.getElementById('numAcc');
+    const headerBest = document.getElementById('headerBest');
+    const resultEl = document.getElementById('result');
+    const rWpm = document.getElementById('rWpm');
+    const rAcc = document.getElementById('rAcc');
+    const rChars = document.getElementById('rChars');
+    const rBest = document.getElementById('rBest');
+    const pbBadge = document.getElementById('pbBadge');
+    const shareText = document.getElementById('shareText');
+    const toast = document.getElementById('toast');
+
+    // ---- Helpers ----
+    function pickText(){
+      let t;
+      do { t = TEXTS[Math.floor(Math.random()*TEXTS.length)]; }
+      while (TEXTS.length > 1 && t === target);
+      return t;
+    }
+
+    function getBest(){
+      const v = parseInt(localStorage.getItem(BEST_KEY) || "0", 10);
+      return isNaN(v) ? 0 : v;
+    }
+    function setBest(v){ try{ localStorage.setItem(BEST_KEY, String(v)); }catch(e){} }
+    function refreshBestDisplay(){
+      const b = getBest();
+      headerBest.textContent = b > 0 ? b : "—";
+    }
+
+    function computeWpm(correct, minutes){
+      if (minutes <= 0) return 0;
+      return Math.round((correct / 5) / minutes);
+    }
+    function computeAcc(correct, total){
+      if (total === 0) return 100;
+      return Math.round((correct / total) * 100);
+    }
+
+    // ---- Render passage with per-character coloring ----
+    function render(){
+      const frag = document.createDocumentFragment();
+      correctCount = 0;
+      totalCount = typed.length;
+      for (let i = 0; i < target.length; i++){
+        const span = document.createElement('span');
+        const tch = target[i];
+        span.className = 'ch';
+        // show a visible representation but keep actual char for spaces
+        span.textContent = tch;
+        if (i < typed.length){
+          if (typed[i] === tch){
+            span.classList.add('correct');
+            correctCount++;
+          } else {
+            span.classList.add('incorrect');
+            if (tch === ' ') span.classList.add('space');
+          }
+        } else if (i === typed.length){
+          span.classList.add('current');
+        }
+        frag.appendChild(span);
+      }
+      passageEl.innerHTML = '';
+      passageEl.appendChild(frag);
+    }
+
+    function updateLiveStats(){
+      // time-based live stats
+      let minutes;
+      if (started && !finished){
+        minutes = (Date.now() - startTime) / 60000;
+      } else {
+        minutes = 0;
+      }
+      numWpm.textContent = computeWpm(correctCount, minutes);
+      numAcc.textContent = computeAcc(correctCount, totalCount) + '%';
+    }
+
+    // ---- Timer ----
+    function tick(){
+      const elapsed = (Date.now() - startTime) / 1000;
+      remaining = Math.max(0, duration - elapsed);
+      numTime.textContent = Math.ceil(remaining);
+      updateLiveStats();
+      if (remaining <= 0){
+        finish();
+      }
+    }
+
+    function startTimer(){
+      started = true;
+      startTime = Date.now();
+      timerId = setInterval(tick, 100);
+    }
+
+    // ---- Lifecycle ----
+    function resetTest(newText){
+      clearInterval(timerId);
+      timerId = null;
+      started = false;
+      finished = false;
+      typed = "";
+      correctCount = 0;
+      totalCount = 0;
+      remaining = duration;
+      if (newText || !target) target = pickText();
+      hidden.value = "";
+      numTime.textContent = duration;
+      numWpm.textContent = "0";
+      numAcc.textContent = "100%";
+      resultEl.classList.remove('show');
+      pbBadge.style.display = 'none';
+      toast.textContent = "";
+      render();
+    }
+
+    function finish(){
+      if (finished) return;
+      finished = true;
+      clearInterval(timerId);
+      timerId = null;
+
+      // Final metrics: use actual elapsed time (capped at duration)
+      const elapsedMs = started ? Math.min(Date.now() - startTime, duration*1000) : 0;
+      const minutes = elapsedMs / 60000;
+      const wpm = computeWpm(correctCount, minutes || (duration/60));
+      const acc = computeAcc(correctCount, totalCount);
+
+      numTime.textContent = "0";
+      numWpm.textContent = wpm;
+      numAcc.textContent = acc + '%';
+
+      // best
+      const prevBest = getBest();
+      let best = prevBest;
+      if (wpm > prevBest){
+        best = wpm;
+        setBest(best);
+        pbBadge.style.display = 'inline-block';
+      } else {
+        pbBadge.style.display = 'none';
+      }
+      refreshBestDisplay();
+
+      rWpm.textContent = wpm;
+      rAcc.textContent = acc + '%';
+      rChars.textContent = totalCount;
+      rBest.textContent = best;
+      shareText.textContent = `I typed ${wpm} WPM with ${acc}% accuracy on a ${duration}s typing test.`;
+
+      resultEl.classList.add('show');
+
+      try { gtag('event', 'typing_test_complete', { wpm: wpm, accuracy: acc, duration: duration }); } catch(e){}
+    }
+
+    // ---- Input handling ----
+    function focusInput(){ hidden.focus(); }
+
+    passageEl.addEventListener('mousedown', function(e){ e.preventDefault(); focusInput(); });
+    passageEl.addEventListener('click', focusInput);
+
+    hidden.addEventListener('focus', function(){
+      passageEl.classList.add('focused');
+      passageEl.classList.remove('blurred');
+    });
+    hidden.addEventListener('blur', function(){
+      passageEl.classList.remove('focused');
+      passageEl.classList.add('blurred');
+    });
+
+    hidden.addEventListener('input', function(){
+      if (finished) { hidden.value = typed; return; }
+      let val = hidden.value;
+      // limit to target length
+      if (val.length > target.length) val = val.slice(0, target.length);
+      typed = val;
+
+      if (!started && typed.length > 0){
+        startTimer();
+      }
+
+      render();
+      updateLiveStats();
+
+      // finished by completing the whole passage
+      if (typed.length >= target.length){
+        finish();
+      }
+    });
+
+    // Block the Enter key from doing anything odd; allow normal typing/backspace
+    hidden.addEventListener('keydown', function(e){
+      if (e.key === 'Enter') e.preventDefault();
+    });
+
+    // Typing anywhere on the page focuses the input (nice UX), except when interacting with buttons/inputs
+    document.addEventListener('keydown', function(e){
+      const tag = (e.target.tagName || '').toLowerCase();
+      if (e.target === hidden) return;
+      if (tag === 'button' || tag === 'input' || tag === 'textarea' || tag === 'a') return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      // only react to characters and backspace
+      if (e.key.length === 1 || e.key === 'Backspace'){
+        focusInput();
+      }
+    });
+
+    // ---- Controls ----
+    document.getElementById('modeSeg').addEventListener('click', function(e){
+      const btn = e.target.closest('button[data-dur]');
+      if (!btn) return;
+      [].forEach.call(this.querySelectorAll('button'), b => b.classList.remove('active'));
+      btn.classList.add('active');
+      duration = parseInt(btn.dataset.dur, 10);
+      resetTest(false); // keep same text, just reset clock
+      focusInput();
+    });
+
+    document.getElementById('newTextBtn').addEventListener('click', function(){
+      resetTest(true);
+      focusInput();
+    });
+    document.getElementById('restartBtn').addEventListener('click', function(){
+      resetTest(false);
+      focusInput();
+    });
+    document.getElementById('tryAgainBtn').addEventListener('click', function(){
+      resetTest(true);   // fresh text on "Try again"
+      focusInput();
+    });
+
+    document.getElementById('copyShareBtn').addEventListener('click', function(){
+      const text = shareText.textContent;
+      const done = () => { toast.textContent = "Copied to clipboard!"; setTimeout(()=>toast.textContent="", 2200); };
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(done).catch(fallbackCopy);
+      } else {
+        fallbackCopy();
+      }
+      function fallbackCopy(){
+        const ta = document.createElement('textarea');
+        ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
+        document.body.appendChild(ta); ta.select();
+        try{ document.execCommand('copy'); done(); }catch(e){ toast.textContent="Press Ctrl+C to copy."; }
+        document.body.removeChild(ta);
+      }
+    });
+
+    // ---- Init ----
+    refreshBestDisplay();
+    resetTest(true);
+    // auto-focus on load for desktop convenience
+    setTimeout(focusInput, 200);
+  })();
+  </script>
+</body>
+</html>
