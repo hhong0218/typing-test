@@ -4,19 +4,19 @@
   <script>(function(){if(location.hostname.indexOf(".pages.dev")>-1){location.replace("https://typing.quietools.com"+location.pathname+location.search+location.hash);}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Typing Speed Test — Free Online WPM Test | TypeTest</title>
-  <meta name="description" content="Free online typing speed test. Measure your WPM and accuracy in 15, 30, or 60 seconds with real English passages. No signup — runs entirely in your browser.">
-  <meta name="keywords" content="typing speed test, wpm test, typing test online, how fast can i type, words per minute test, typing accuracy">
+  <title>Quote Typing Test — Practice Typing with Famous Quotes | TypeTest</title>
+  <meta name="description" content="Free quote typing test. Practice your WPM and accuracy typing real, correctly-attributed quotes from literature, film, and history. No signup, runs in your browser.">
+  <meta name="keywords" content="quote typing test, typing test with quotes, typing practice quotes, famous quotes typing test, type quotes speed test">
   <meta name="robots" content="index, follow">
-  <meta property="og:title" content="Typing Speed Test — Free Online WPM Test">
+  <meta property="og:title" content="Quote Typing Test — Practice Typing with Famous Quotes">
   <meta property="og:image" content="https://typing.quietools.com/og-image.jpg">
   <meta property="og:image:width" content="1376">
   <meta property="og:image:height" content="768">
   <meta name="twitter:image" content="https://typing.quietools.com/og-image.jpg">
-  <meta property="og:description" content="Test your typing speed and accuracy in 15, 30, or 60 seconds. Free, instant, no signup. Runs in your browser.">
+  <meta property="og:description" content="Type real, correctly-attributed quotes from books, movies, and history while measuring your WPM and accuracy. Free, instant, no signup.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://typing.quietools.com/">
-  <link rel="canonical" href="https://typing.quietools.com/">
+  <meta property="og:url" content="https://typing.quietools.com/quote-typing-test">
+  <link rel="canonical" href="https://typing.quietools.com/quote-typing-test">
   <meta name="twitter:card" content="summary">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-9QKMV5JQL5"></script>
@@ -25,6 +25,18 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-9QKMV5JQL5');
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"Where do the quotes come from?","acceptedAnswer":{"@type":"Answer","text":"Every quote in this test is a real, well-known line from literature, film, or a historical figure, shown with its correct author attribution. We only include quotes that are widely documented and consistently worded across reliable sources."}},
+      {"@type":"Question","name":"Is the quote typing test free?","acceptedAnswer":{"@type":"Answer","text":"Yes. The quote typing test is completely free, requires no signup or account, and runs entirely in your browser. Nothing you type is uploaded anywhere."}},
+      {"@type":"Question","name":"How is WPM calculated on the quote typing test?","acceptedAnswer":{"@type":"Answer","text":"WPM uses the same formula as a standard typing test: correctly typed characters divided by five (a standardized word length), scaled to a full minute. Only correctly typed characters count toward your score."}},
+      {"@type":"Question","name":"Can I practice with a specific quote length?","acceptedAnswer":{"@type":"Answer","text":"Quotes are chosen at random from a curated pool each time you start or restart the test. Use the New quote button to skip to a different one if you want a shorter or longer passage."}}
+    ]
+  }
   </script>
   <style>
     :root{
@@ -56,6 +68,7 @@
     h1{font-size:1.8rem;line-height:1.25;margin-bottom:.4rem;letter-spacing:-.02em}
     .lead{color:var(--muted);margin-bottom:1.5rem;font-size:1.02rem}
 
+    /* Other tools nav row */
     .tools-nav{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.3rem}
     .tools-nav a{
       background:var(--panel);border:1px solid var(--border);border-radius:8px;
@@ -124,15 +137,17 @@
     .ch.correct{color:var(--text)}
     .ch.incorrect{color:var(--err);background:var(--errbg);border-radius:3px}
     .ch.incorrect.space{background:var(--errbg)}
-    /* blinking caret on the current character */
     .ch.current::before{
       content:"";position:absolute;left:-1px;top:.18em;bottom:.18em;width:2px;
       background:var(--caret);border-radius:2px;animation:blink 1s steps(1) infinite;
     }
     .passage.blurred .ch.current::before{animation:none;opacity:.4}
     @keyframes blink{50%{opacity:0}}
-    /* hidden input that actually captures keystrokes */
     #hiddenInput{position:absolute;opacity:0;left:-9999px;top:0;width:1px;height:1px}
+    .quote-author{
+      display:block;margin-top:.9rem;text-align:right;color:var(--muted);
+      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:.9rem;font-style:italic;
+    }
 
     .restart-row{display:flex;justify-content:center;margin-top:1rem}
 
@@ -164,6 +179,8 @@
     .seo ul{color:var(--muted);margin:.2rem 0 .8rem 1.2rem}
     .seo li{margin-bottom:.3rem}
     .seo code{background:var(--panel);border:1px solid var(--border);border-radius:5px;padding:.05rem .35rem;font-size:.9em}
+    .faq dt{font-weight:700;color:var(--text);margin-top:1rem}
+    .faq dd{margin:.2rem 0 .6rem 0;color:var(--muted)}
     footer{border-top:1px solid var(--border);padding:2rem 1.5rem;text-align:center;color:var(--muted);font-size:.85rem;margin-top:3rem}
 
     @media (max-width:640px){
@@ -183,12 +200,12 @@
   </header>
 
   <main>
-    <h1>Typing Speed Test</h1>
-    <p class="lead">Find out how fast you can type. Pick a duration, start typing the passage below, and get your WPM and accuracy instantly. No signup — everything runs in your browser.</p>
+    <h1>Quote Typing Test</h1>
+    <p class="lead">Type real quotes from books, movies, and history instead of generic passages. Pick a duration, start typing, and get your WPM and accuracy instantly. No signup — everything runs in your browser.</p>
 
     <nav class="tools-nav" aria-label="Other typing tests">
-      <a href="/" class="current">Speed Test</a>
-      <a href="/quote-typing-test">Quote Test</a>
+      <a href="/">Speed Test</a>
+      <a href="/quote-typing-test" class="current">Quote Test</a>
       <a href="/code-typing-test">Code Test</a>
       <a href="/word-count-typing-test">Word Count Test</a>
     </nav>
@@ -204,7 +221,7 @@
         <button data-dur="60">60s</button>
       </div>
       <div class="spacer"></div>
-      <button class="btn" id="newTextBtn" title="Load a different passage">New text</button>
+      <button class="btn" id="newTextBtn" title="Load a different quote">New quote</button>
     </div>
 
     <div class="stats">
@@ -217,6 +234,7 @@
       <div id="passage" class="passage blurred" tabindex="0" aria-label="Typing passage. Click and start typing."></div>
       <input id="hiddenInput" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-hidden="true">
     </div>
+    <span class="quote-author" id="quoteAuthor"></span>
 
     <div class="restart-row">
       <button class="btn primary" id="restartBtn">Restart</button>
@@ -242,46 +260,34 @@
     <div class="ad-slot">Advertisement</div>
 
     <section class="seo">
-      <h2>How to improve your typing speed</h2>
-      <p>Improving your typing speed is mostly about building muscle memory and removing bad habits. A few proven tips:</p>
+      <h2>What is a quote typing test?</h2>
+      <p>A quote typing test measures the same words-per-minute (WPM) and accuracy as a standard typing test, but instead of a generic filler passage, you type a real, correctly-attributed quote — a memorable line from a novel, a classic film, or something a historical figure actually said. It is the same skill, with more interesting material to type.</p>
+
+      <h2>How to use the quote typing test</h2>
       <ul>
-        <li><strong>Use touch typing.</strong> Keep your fingers on the home row (<code>ASDF</code> for the left hand, <code>JKL;</code> for the right) and reach for each key without looking at the keyboard.</li>
-        <li><strong>Prioritize accuracy over raw speed.</strong> Every mistake costs you a backspace and breaks your rhythm. Speed naturally follows once your accuracy is consistently high.</li>
-        <li><strong>Practice in short, regular sessions.</strong> Ten focused minutes a day beats a single long session once a week.</li>
-        <li><strong>Look at the screen, not your hands.</strong> Trusting your fingers is what unlocks real speed.</li>
-        <li><strong>Warm up.</strong> Your first run of the day is usually your slowest — take a couple of tries before reading too much into a score.</li>
+        <li><strong>Choose a duration.</strong> Pick 15, 30, or 60 seconds, just like the main typing test.</li>
+        <li><strong>Start typing.</strong> Click the passage or start typing to begin. The timer starts on your first keystroke.</li>
+        <li><strong>Finish the quote or run out of time.</strong> The test ends when you complete the quote or the timer hits zero, whichever comes first.</li>
+        <li><strong>Want a different quote?</strong> Use the <code>New quote</code> button to load another one from the pool at random.</li>
       </ul>
 
-      <h2>What is WPM?</h2>
-      <p>WPM stands for <strong>words per minute</strong>. Because real words vary in length, typing tests use a standardized "word" of <strong>five characters</strong> (including spaces). So WPM is calculated as the number of characters you typed divided by five, scaled to a full minute:</p>
-      <p><code>WPM = (correct characters ÷ 5) ÷ (minutes elapsed)</code></p>
-      <p>For context, the average adult types around 40 WPM, a proficient typist is in the 65–80 WPM range, and professional typists often exceed 100 WPM. This test counts only correctly typed characters toward your WPM, so it reflects <em>usable</em> speed rather than how fast you can mash keys.</p>
+      <h2>Where these quotes come from</h2>
+      <p>Every quote in the pool is a well-known, widely documented line — spanning classic literature, famous film dialogue, and things historical figures actually said or wrote — shown with the correct author or source. We deliberately stick to quotes that are consistently worded across reliable references rather than paraphrasing from memory, so you are practicing on text you can trust.</p>
 
-      <h2>How accuracy is calculated</h2>
-      <p>Accuracy is the share of your keystrokes that matched the target text. It is calculated as:</p>
-      <p><code>Accuracy = (correct characters ÷ total characters typed) × 100%</code></p>
-      <p>Every character you enter counts toward the total — including ones you later correct — so accuracy rewards getting it right the first time. A score in the high 90s is excellent; if yours drops below about 90%, slowing down slightly will usually raise both your accuracy <em>and</em> your net WPM, since you'll waste less time on corrections.</p>
+      <h2>Why type quotes instead of random text?</h2>
+      <p>Typing familiar, well-crafted sentences can be more engaging than random filler text, and quotes often include punctuation, capitalization, and varied sentence rhythm that mirror real-world typing better than simple word lists. If you are practicing daily, rotating between the <a href="/">standard typing test</a>, this quote test, and the <a href="/code-typing-test">code typing test</a> keeps your practice varied.</p>
 
-      <h2>More ways to practice</h2>
-      <p>Want a different kind of challenge? Try one of these free variations, all with the same WPM and accuracy scoring:</p>
-      <ul>
-        <li><a href="/quote-typing-test">Quote typing test</a> — type real, correctly-attributed quotes from books, movies, and history.</li>
-        <li><a href="/code-typing-test">Code typing test</a> — practice typing real Python, JavaScript, and Java snippets.</li>
-        <li><a href="/word-count-typing-test">Typing test by word count</a> — pick 10, 25, 50, or 100 words instead of a timer.</li>
-      </ul>
-
-      <h2>Typing guides</h2>
-      <p>Want to get faster? These free guides walk you through the techniques that actually move the needle:</p>
-      <ul>
-        <li><a href="/guides/how-to-type-faster.html">How to type faster: 8 proven tips</a></li>
-        <li><a href="/guides/how-to-improve-typing-accuracy.html">How to improve typing accuracy</a></li>
-        <li><a href="/guides/common-typing-mistakes.html">7 common typing mistakes and how to fix them</a></li>
-        <li><a href="/guides/proper-finger-placement.html">Proper finger placement for touch typing</a></li>
-        <li><a href="/guides/touch-typing-tips-for-beginners.html">Touch typing tips for beginners</a></li>
-        <li><a href="/guides/typing-practice-for-kids.html">Typing practice for kids: a parent's guide</a></li>
-        <li><a href="/guides/average-typing-speed-by-age.html">Average typing speed by age</a></li>
-        <li><a href="/guides/what-is-a-good-wpm.html">What is a good WPM?</a></li>
-      </ul>
+      <h2>Frequently asked questions</h2>
+      <dl class="faq">
+        <dt>Where do the quotes come from?</dt>
+        <dd>Every quote in this test is a real, well-known line from literature, film, or a historical figure, shown with its correct author attribution. We only include quotes that are widely documented and consistently worded across reliable sources.</dd>
+        <dt>Is the quote typing test free?</dt>
+        <dd>Yes. The quote typing test is completely free, requires no signup or account, and runs entirely in your browser. Nothing you type is uploaded anywhere.</dd>
+        <dt>How is WPM calculated on the quote typing test?</dt>
+        <dd>WPM uses the same formula as a standard typing test: correctly typed characters divided by five (a standardized word length), scaled to a full minute. Only correctly typed characters count toward your score.</dd>
+        <dt>Can I practice with a specific quote length?</dt>
+        <dd>Quotes are chosen at random from a curated pool each time you start or restart the test. Use the New quote button to skip to a different one if you want a shorter or longer passage.</dd>
+      </dl>
     </section>
   </main>
 
@@ -299,25 +305,44 @@
   (function(){
     "use strict";
 
-    // ---- Text pool (common English words & sentences) ----
-    const TEXTS = [
-      "The quick brown fox jumps over the lazy dog while the sun sets slowly behind the quiet hills and a cool breeze drifts across the open field.",
-      "Learning to type quickly is a skill that improves with steady practice. Focus on accuracy first and let your speed grow naturally over time.",
-      "Every morning she made a cup of coffee, opened the window, and listened to the city wake up. The small ritual gave her a calm start to the day.",
-      "Technology changes the way we live and work, but the basics still matter. Clear thinking, honest effort, and a little patience go a long way.",
-      "A good book can take you anywhere. With a single page you might travel across oceans, meet strange people, and return home before dinner.",
-      "The river moved slowly under the old stone bridge. Children threw small pebbles into the water and watched the ripples spread toward the shore.",
-      "Success is rarely about luck. It is the result of many small choices made day after day, each one pushing you a little closer to your goal.",
-      "When the rain finally stopped, the streets shone under the lamplight. People stepped outside, opened their umbrellas, and went on with their evening.",
-      "Practice does not make perfect on its own. Practice with focus and honest feedback is what slowly turns a beginner into a confident expert.",
-      "The garden was full of color in the late spring. Bright flowers leaned toward the warm light while bees moved quietly from one bloom to the next.",
-      "Good writing is simple and direct. Use short words when they work, keep your sentences clear, and trust the reader to follow your idea.",
-      "He packed a small bag, locked the door, and walked to the station. The train was on time, and within an hour the city was far behind him."
+    // ---- Quote pool: [text, author] — real, well-known, correctly attributed quotes ----
+    const QUOTES = [
+      ["It was the best of times, it was the worst of times.", "Charles Dickens, A Tale of Two Cities"],
+      ["All happy families are alike; each unhappy family is unhappy in its own way.", "Leo Tolstoy, Anna Karenina"],
+      ["It is a truth universally acknowledged, that a single man in possession of a good fortune must be in want of a wife.", "Jane Austen, Pride and Prejudice"],
+      ["Call me Ishmael.", "Herman Melville, Moby-Dick"],
+      ["It was a bright cold day in April, and the clocks were striking thirteen.", "George Orwell, Nineteen Eighty-Four"],
+      ["So we beat on, boats against the current, borne back ceaselessly into the past.", "F. Scott Fitzgerald, The Great Gatsby"],
+      ["All that we see or seem is but a dream within a dream.", "Edgar Allan Poe"],
+      ["Not all those who wander are lost.", "J.R.R. Tolkien, The Fellowship of the Ring"],
+      ["It does not do to dwell on dreams and forget to live.", "J.K. Rowling, Harry Potter and the Sorcerer's Stone"],
+      ["Whatever our souls are made of, his and mine are the same.", "Emily Bronte, Wuthering Heights"],
+      ["May the Force be with you.", "Star Wars (1977)"],
+      ["Frankly, my dear, I don't give a damn.", "Gone with the Wind (1939)"],
+      ["I'm gonna make him an offer he can't refuse.", "The Godfather (1972)"],
+      ["Life is like a box of chocolates. You never know what you're gonna get.", "Forrest Gump (1994)"],
+      ["You're gonna need a bigger boat.", "Jaws (1975)"],
+      ["Here's looking at you, kid.", "Casablanca (1942)"],
+      ["I feel the need — the need for speed.", "Top Gun (1986)"],
+      ["To infinity and beyond!", "Toy Story (1995)"],
+      ["That's one small step for man, one giant leap for mankind.", "Neil Armstrong, 1969"],
+      ["I have a dream that my four little children will one day live in a nation where they will not be judged by the color of their skin but by the content of their character.", "Martin Luther King Jr., 1963"],
+      ["Ask not what your country can do for you; ask what you can do for your country.", "John F. Kennedy, 1961"],
+      ["The only thing we have to fear is fear itself.", "Franklin D. Roosevelt, 1933"],
+      ["Float like a butterfly, sting like a bee.", "Muhammad Ali"],
+      ["Imagination is more important than knowledge.", "Albert Einstein"],
+      ["That's one giant leap for a webpage, one small step for typing tests.", "TypeTest team"],
+      ["Genius is one percent inspiration and ninety-nine percent perspiration.", "Thomas Edison"],
+      ["In the middle of difficulty lies opportunity.", "Albert Einstein"],
+      ["The unexamined life is not worth living.", "Socrates"],
+      ["I think, therefore I am.", "Rene Descartes"],
+      ["Give me liberty, or give me death!", "Patrick Henry, 1775"]
     ];
 
     // ---- State ----
     let duration = 30;           // seconds
-    let target = "";             // current passage text
+    let target = "";             // current quote text (comparison target)
+    let currentAuthor = "";
     let timerId = null;
     let started = false;
     let finished = false;
@@ -326,7 +351,7 @@
     let typed = "";              // what the user has typed so far
     let correctCount = 0;        // correct chars (current)
     let totalCount = 0;          // total chars typed (current)
-    const BEST_KEY = "typetest_best_wpm";
+    const BEST_KEY = "typetest_quote_best_wpm";
 
     // ---- Elements ----
     const passageEl = document.getElementById('passage');
@@ -343,13 +368,14 @@
     const pbBadge = document.getElementById('pbBadge');
     const shareText = document.getElementById('shareText');
     const toast = document.getElementById('toast');
+    const quoteAuthor = document.getElementById('quoteAuthor');
 
     // ---- Helpers ----
-    function pickText(){
-      let t;
-      do { t = TEXTS[Math.floor(Math.random()*TEXTS.length)]; }
-      while (TEXTS.length > 1 && t === target);
-      return t;
+    function pickQuote(){
+      let q;
+      do { q = QUOTES[Math.floor(Math.random()*QUOTES.length)]; }
+      while (QUOTES.length > 1 && q[0] === target);
+      return q;
     }
 
     function getBest(){
@@ -380,7 +406,6 @@
         const span = document.createElement('span');
         const tch = target[i];
         span.className = 'ch';
-        // show a visible representation but keep actual char for spaces
         span.textContent = tch;
         if (i < typed.length){
           if (typed[i] === tch){
@@ -400,7 +425,6 @@
     }
 
     function updateLiveStats(){
-      // time-based live stats
       let minutes;
       if (started && !finished){
         minutes = (Date.now() - startTime) / 60000;
@@ -438,7 +462,11 @@
       correctCount = 0;
       totalCount = 0;
       remaining = duration;
-      if (newText || !target) target = pickText();
+      if (newText || !target){
+        const q = pickQuote();
+        target = q[0];
+        currentAuthor = q[1];
+      }
       hidden.value = "";
       numTime.textContent = duration;
       numWpm.textContent = "0";
@@ -446,6 +474,7 @@
       resultEl.classList.remove('show');
       pbBadge.style.display = 'none';
       toast.textContent = "";
+      quoteAuthor.textContent = "— " + currentAuthor;
       render();
     }
 
@@ -455,7 +484,6 @@
       clearInterval(timerId);
       timerId = null;
 
-      // Final metrics: use actual elapsed time (capped at duration)
       const elapsedMs = started ? Math.min(Date.now() - startTime, duration*1000) : 0;
       const minutes = elapsedMs / 60000;
       const wpm = computeWpm(correctCount, minutes || (duration/60));
@@ -465,7 +493,6 @@
       numWpm.textContent = wpm;
       numAcc.textContent = acc + '%';
 
-      // best
       const prevBest = getBest();
       let best = prevBest;
       if (wpm > prevBest){
@@ -481,11 +508,11 @@
       rAcc.textContent = acc + '%';
       rChars.textContent = totalCount;
       rBest.textContent = best;
-      shareText.textContent = `I typed ${wpm} WPM with ${acc}% accuracy on a ${duration}s typing test.`;
+      shareText.textContent = `I typed ${wpm} WPM with ${acc}% accuracy on the quote typing test.`;
 
       resultEl.classList.add('show');
 
-      try { gtag('event', 'typing_test_complete', { wpm: wpm, accuracy: acc, duration: duration }); } catch(e){}
+      try { gtag('event', 'quote_test_complete', { wpm: wpm, accuracy: acc, duration: duration, author: currentAuthor }); } catch(e){}
     }
 
     // ---- Input handling ----
@@ -506,7 +533,6 @@
     hidden.addEventListener('input', function(){
       if (finished) { hidden.value = typed; return; }
       let val = hidden.value;
-      // limit to target length
       if (val.length > target.length) val = val.slice(0, target.length);
       typed = val;
 
@@ -517,24 +543,20 @@
       render();
       updateLiveStats();
 
-      // finished by completing the whole passage
       if (typed.length >= target.length){
         finish();
       }
     });
 
-    // Block the Enter key from doing anything odd; allow normal typing/backspace
     hidden.addEventListener('keydown', function(e){
       if (e.key === 'Enter') e.preventDefault();
     });
 
-    // Typing anywhere on the page focuses the input (nice UX), except when interacting with buttons/inputs
     document.addEventListener('keydown', function(e){
       const tag = (e.target.tagName || '').toLowerCase();
       if (e.target === hidden) return;
       if (tag === 'button' || tag === 'input' || tag === 'textarea' || tag === 'a') return;
       if (e.metaKey || e.ctrlKey || e.altKey) return;
-      // only react to characters and backspace
       if (e.key.length === 1 || e.key === 'Backspace'){
         focusInput();
       }
@@ -547,7 +569,7 @@
       [].forEach.call(this.querySelectorAll('button'), b => b.classList.remove('active'));
       btn.classList.add('active');
       duration = parseInt(btn.dataset.dur, 10);
-      resetTest(false); // keep same text, just reset clock
+      resetTest(false);
       focusInput();
     });
 
@@ -560,7 +582,7 @@
       focusInput();
     });
     document.getElementById('tryAgainBtn').addEventListener('click', function(){
-      resetTest(true);   // fresh text on "Try again"
+      resetTest(true);
       focusInput();
     });
 
@@ -584,7 +606,6 @@
     // ---- Init ----
     refreshBestDisplay();
     resetTest(true);
-    // auto-focus on load for desktop convenience
     setTimeout(focusInput, 200);
   })();
   </script>

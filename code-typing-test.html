@@ -4,19 +4,19 @@
   <script>(function(){if(location.hostname.indexOf(".pages.dev")>-1){location.replace("https://typing.quietools.com"+location.pathname+location.search+location.hash);}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Typing Speed Test — Free Online WPM Test | TypeTest</title>
-  <meta name="description" content="Free online typing speed test. Measure your WPM and accuracy in 15, 30, or 60 seconds with real English passages. No signup — runs entirely in your browser.">
-  <meta name="keywords" content="typing speed test, wpm test, typing test online, how fast can i type, words per minute test, typing accuracy">
+  <title>Code Typing Test — Typing Speed Test for Programmers | TypeTest</title>
+  <meta name="description" content="Free code typing test for developers. Measure your WPM and accuracy typing real Python, JavaScript, and Java snippets with correct indentation. No signup, runs in your browser.">
+  <meta name="keywords" content="code typing test, programmer typing test, typing test for developers, coding speed test, typing practice for programmers">
   <meta name="robots" content="index, follow">
-  <meta property="og:title" content="Typing Speed Test — Free Online WPM Test">
+  <meta property="og:title" content="Code Typing Test — Typing Speed Test for Programmers">
   <meta property="og:image" content="https://typing.quietools.com/og-image.jpg">
   <meta property="og:image:width" content="1376">
   <meta property="og:image:height" content="768">
   <meta name="twitter:image" content="https://typing.quietools.com/og-image.jpg">
-  <meta property="og:description" content="Test your typing speed and accuracy in 15, 30, or 60 seconds. Free, instant, no signup. Runs in your browser.">
+  <meta property="og:description" content="Practice typing real Python, JavaScript, and Java code snippets with correct indentation while measuring your WPM and accuracy. Free, instant, no signup.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://typing.quietools.com/">
-  <link rel="canonical" href="https://typing.quietools.com/">
+  <meta property="og:url" content="https://typing.quietools.com/code-typing-test">
+  <link rel="canonical" href="https://typing.quietools.com/code-typing-test">
   <meta name="twitter:card" content="summary">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-9QKMV5JQL5"></script>
@@ -25,6 +25,18 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-9QKMV5JQL5');
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"Which programming languages are included?","acceptedAnswer":{"@type":"Answer","text":"The code typing test includes short, realistic snippets in Python, JavaScript, and Java, covering common patterns like loops, function definitions, and array or list operations."}},
+      {"@type":"Question","name":"Does indentation count toward accuracy?","acceptedAnswer":{"@type":"Answer","text":"Yes. Leading spaces and line breaks are treated as real characters, just like in an actual code editor, so you need to match the indentation exactly for those characters to count as correct."}},
+      {"@type":"Question","name":"Do I need to press Enter to start a new line?","acceptedAnswer":{"@type":"Answer","text":"Yes. When a snippet has multiple lines, press Enter at the end of each line, the same way you would in a code editor, to match the line break in the target snippet."}},
+      {"@type":"Question","name":"Is this useful if I'm not a professional developer?","acceptedAnswer":{"@type":"Answer","text":"Yes. Anyone who writes code occasionally — students, hobbyists, or professionals — can use this test to practice typing syntax like brackets, colons, and indentation more fluently."}}
+    ]
+  }
   </script>
   <style>
     :root{
@@ -107,10 +119,10 @@
     .type-wrap{position:relative}
     .passage{
       background:var(--panel);border:1px solid var(--border);border-radius:14px;
-      padding:1.4rem 1.5rem;font-size:1.45rem;line-height:2;letter-spacing:.01em;
+      padding:1.4rem 1.5rem;font-size:1.15rem;line-height:1.7;letter-spacing:0;
       font-family:'SFMono-Regular',ui-monospace,'Cascadia Code',Consolas,'Liberation Mono',monospace;
-      color:var(--untyped);min-height:160px;cursor:text;
-      user-select:none;-webkit-user-select:none;
+      color:var(--untyped);min-height:220px;cursor:text;
+      user-select:none;-webkit-user-select:none;white-space:pre-wrap;
       transition:border-color .15s, box-shadow .15s;word-break:break-word;
     }
     .passage.focused{border-color:var(--accent);box-shadow:0 0 0 3px rgba(124,156,255,.16)}
@@ -124,15 +136,19 @@
     .ch.correct{color:var(--text)}
     .ch.incorrect{color:var(--err);background:var(--errbg);border-radius:3px}
     .ch.incorrect.space{background:var(--errbg)}
-    /* blinking caret on the current character */
     .ch.current::before{
       content:"";position:absolute;left:-1px;top:.18em;bottom:.18em;width:2px;
       background:var(--caret);border-radius:2px;animation:blink 1s steps(1) infinite;
     }
     .passage.blurred .ch.current::before{animation:none;opacity:.4}
     @keyframes blink{50%{opacity:0}}
-    /* hidden input that actually captures keystrokes */
-    #hiddenInput{position:absolute;opacity:0;left:-9999px;top:0;width:1px;height:1px}
+    /* hidden textarea (not input) so it can hold real newline characters for multi-line code */
+    #hiddenInput{position:absolute;opacity:0;left:-9999px;top:0;width:1px;height:1px;resize:none;border:none}
+    .snippet-lang{
+      display:inline-block;margin-bottom:.6rem;background:var(--panel);border:1px solid var(--border);
+      border-radius:6px;padding:.2rem .6rem;font-size:.75rem;color:var(--accent2);font-weight:700;
+      text-transform:uppercase;letter-spacing:.05em;
+    }
 
     .restart-row{display:flex;justify-content:center;margin-top:1rem}
 
@@ -164,11 +180,13 @@
     .seo ul{color:var(--muted);margin:.2rem 0 .8rem 1.2rem}
     .seo li{margin-bottom:.3rem}
     .seo code{background:var(--panel);border:1px solid var(--border);border-radius:5px;padding:.05rem .35rem;font-size:.9em}
+    .faq dt{font-weight:700;color:var(--text);margin-top:1rem}
+    .faq dd{margin:.2rem 0 .6rem 0;color:var(--muted)}
     footer{border-top:1px solid var(--border);padding:2rem 1.5rem;text-align:center;color:var(--muted);font-size:.85rem;margin-top:3rem}
 
     @media (max-width:640px){
       h1{font-size:1.45rem}
-      .passage{font-size:1.18rem;line-height:1.95;padding:1.1rem 1.15rem}
+      .passage{font-size:.95rem;line-height:1.6;padding:1.1rem 1.15rem}
       .result-grid{grid-template-columns:repeat(2,1fr)}
       .stat .num{font-size:1.45rem}
       main{padding:1.1rem}
@@ -183,13 +201,13 @@
   </header>
 
   <main>
-    <h1>Typing Speed Test</h1>
-    <p class="lead">Find out how fast you can type. Pick a duration, start typing the passage below, and get your WPM and accuracy instantly. No signup — everything runs in your browser.</p>
+    <h1>Code Typing Test</h1>
+    <p class="lead">Practice typing real code instead of prose. Snippets in Python, JavaScript, and Java with correct indentation, brackets, and syntax. Pick a duration, start typing, and get your WPM and accuracy instantly.</p>
 
     <nav class="tools-nav" aria-label="Other typing tests">
-      <a href="/" class="current">Speed Test</a>
+      <a href="/">Speed Test</a>
       <a href="/quote-typing-test">Quote Test</a>
-      <a href="/code-typing-test">Code Test</a>
+      <a href="/code-typing-test" class="current">Code Test</a>
       <a href="/word-count-typing-test">Word Count Test</a>
     </nav>
 
@@ -204,7 +222,7 @@
         <button data-dur="60">60s</button>
       </div>
       <div class="spacer"></div>
-      <button class="btn" id="newTextBtn" title="Load a different passage">New text</button>
+      <button class="btn" id="newTextBtn" title="Load a different snippet">New snippet</button>
     </div>
 
     <div class="stats">
@@ -213,9 +231,10 @@
       <div class="stat" id="statAcc"><div class="num" id="numAcc">100%</div><div class="lbl">Accuracy</div></div>
     </div>
 
+    <span class="snippet-lang" id="snippetLang">JAVASCRIPT</span>
     <div class="type-wrap">
       <div id="passage" class="passage blurred" tabindex="0" aria-label="Typing passage. Click and start typing."></div>
-      <input id="hiddenInput" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-hidden="true">
+      <textarea id="hiddenInput" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-hidden="true"></textarea>
     </div>
 
     <div class="restart-row">
@@ -242,46 +261,35 @@
     <div class="ad-slot">Advertisement</div>
 
     <section class="seo">
-      <h2>How to improve your typing speed</h2>
-      <p>Improving your typing speed is mostly about building muscle memory and removing bad habits. A few proven tips:</p>
+      <h2>What is a code typing test?</h2>
+      <p>A code typing test measures your typing speed (WPM) and accuracy the same way a standard typing test does, but the passage is a real, syntactically correct code snippet instead of prose. It exercises the keys prose rarely touches — brackets, colons, underscores, and consistent indentation — which is exactly what programmers type all day.</p>
+
+      <h2>How to use the code typing test</h2>
       <ul>
-        <li><strong>Use touch typing.</strong> Keep your fingers on the home row (<code>ASDF</code> for the left hand, <code>JKL;</code> for the right) and reach for each key without looking at the keyboard.</li>
-        <li><strong>Prioritize accuracy over raw speed.</strong> Every mistake costs you a backspace and breaks your rhythm. Speed naturally follows once your accuracy is consistently high.</li>
-        <li><strong>Practice in short, regular sessions.</strong> Ten focused minutes a day beats a single long session once a week.</li>
-        <li><strong>Look at the screen, not your hands.</strong> Trusting your fingers is what unlocks real speed.</li>
-        <li><strong>Warm up.</strong> Your first run of the day is usually your slowest — take a couple of tries before reading too much into a score.</li>
+        <li><strong>Choose a duration.</strong> Pick 15, 30, or 60 seconds.</li>
+        <li><strong>Start typing.</strong> Click the code block or start typing to begin. The timer starts on your first keystroke.</li>
+        <li><strong>Match indentation exactly.</strong> Leading spaces count as real characters, so line up your indentation the way it appears.</li>
+        <li><strong>Press Enter for new lines.</strong> When a snippet spans multiple lines, press Enter at the end of each line to match the line break.</li>
+        <li><strong>Want a different snippet?</strong> Use the <code>New snippet</code> button to load another one at random.</li>
       </ul>
 
-      <h2>What is WPM?</h2>
-      <p>WPM stands for <strong>words per minute</strong>. Because real words vary in length, typing tests use a standardized "word" of <strong>five characters</strong> (including spaces). So WPM is calculated as the number of characters you typed divided by five, scaled to a full minute:</p>
-      <p><code>WPM = (correct characters ÷ 5) ÷ (minutes elapsed)</code></p>
-      <p>For context, the average adult types around 40 WPM, a proficient typist is in the 65–80 WPM range, and professional typists often exceed 100 WPM. This test counts only correctly typed characters toward your WPM, so it reflects <em>usable</em> speed rather than how fast you can mash keys.</p>
+      <h2>Languages covered</h2>
+      <p>The snippet pool mixes short, realistic patterns from <strong>Python</strong>, <strong>JavaScript</strong>, and <strong>Java</strong> — things like a <code>for</code> loop, a function definition, or an array or list method — so you get variety in syntax style: significant whitespace, curly braces, semicolons, and typed declarations.</p>
 
-      <h2>How accuracy is calculated</h2>
-      <p>Accuracy is the share of your keystrokes that matched the target text. It is calculated as:</p>
-      <p><code>Accuracy = (correct characters ÷ total characters typed) × 100%</code></p>
-      <p>Every character you enter counts toward the total — including ones you later correct — so accuracy rewards getting it right the first time. A score in the high 90s is excellent; if yours drops below about 90%, slowing down slightly will usually raise both your accuracy <em>and</em> your net WPM, since you'll waste less time on corrections.</p>
+      <h2>Why practice typing code specifically?</h2>
+      <p>Regular typing tests build general speed, but code has its own rhythm: short lines, frequent symbols, and indentation you can't skip. Developers who touch-type prose fluently often still fumble on brackets and colons simply because they never practiced them. This test isolates that gap. If you also want general speed practice, try the <a href="/">standard typing test</a> or the <a href="/quote-typing-test">quote typing test</a>.</p>
 
-      <h2>More ways to practice</h2>
-      <p>Want a different kind of challenge? Try one of these free variations, all with the same WPM and accuracy scoring:</p>
-      <ul>
-        <li><a href="/quote-typing-test">Quote typing test</a> — type real, correctly-attributed quotes from books, movies, and history.</li>
-        <li><a href="/code-typing-test">Code typing test</a> — practice typing real Python, JavaScript, and Java snippets.</li>
-        <li><a href="/word-count-typing-test">Typing test by word count</a> — pick 10, 25, 50, or 100 words instead of a timer.</li>
-      </ul>
-
-      <h2>Typing guides</h2>
-      <p>Want to get faster? These free guides walk you through the techniques that actually move the needle:</p>
-      <ul>
-        <li><a href="/guides/how-to-type-faster.html">How to type faster: 8 proven tips</a></li>
-        <li><a href="/guides/how-to-improve-typing-accuracy.html">How to improve typing accuracy</a></li>
-        <li><a href="/guides/common-typing-mistakes.html">7 common typing mistakes and how to fix them</a></li>
-        <li><a href="/guides/proper-finger-placement.html">Proper finger placement for touch typing</a></li>
-        <li><a href="/guides/touch-typing-tips-for-beginners.html">Touch typing tips for beginners</a></li>
-        <li><a href="/guides/typing-practice-for-kids.html">Typing practice for kids: a parent's guide</a></li>
-        <li><a href="/guides/average-typing-speed-by-age.html">Average typing speed by age</a></li>
-        <li><a href="/guides/what-is-a-good-wpm.html">What is a good WPM?</a></li>
-      </ul>
+      <h2>Frequently asked questions</h2>
+      <dl class="faq">
+        <dt>Which programming languages are included?</dt>
+        <dd>The code typing test includes short, realistic snippets in Python, JavaScript, and Java, covering common patterns like loops, function definitions, and array or list operations.</dd>
+        <dt>Does indentation count toward accuracy?</dt>
+        <dd>Yes. Leading spaces and line breaks are treated as real characters, just like in an actual code editor, so you need to match the indentation exactly for those characters to count as correct.</dd>
+        <dt>Do I need to press Enter to start a new line?</dt>
+        <dd>Yes. When a snippet has multiple lines, press Enter at the end of each line, the same way you would in a code editor, to match the line break in the target snippet.</dd>
+        <dt>Is this useful if I'm not a professional developer?</dt>
+        <dd>Yes. Anyone who writes code occasionally — students, hobbyists, or professionals — can use this test to practice typing syntax like brackets, colons, and indentation more fluently.</dd>
+      </dl>
     </section>
   </main>
 
@@ -299,25 +307,37 @@
   (function(){
     "use strict";
 
-    // ---- Text pool (common English words & sentences) ----
-    const TEXTS = [
-      "The quick brown fox jumps over the lazy dog while the sun sets slowly behind the quiet hills and a cool breeze drifts across the open field.",
-      "Learning to type quickly is a skill that improves with steady practice. Focus on accuracy first and let your speed grow naturally over time.",
-      "Every morning she made a cup of coffee, opened the window, and listened to the city wake up. The small ritual gave her a calm start to the day.",
-      "Technology changes the way we live and work, but the basics still matter. Clear thinking, honest effort, and a little patience go a long way.",
-      "A good book can take you anywhere. With a single page you might travel across oceans, meet strange people, and return home before dinner.",
-      "The river moved slowly under the old stone bridge. Children threw small pebbles into the water and watched the ripples spread toward the shore.",
-      "Success is rarely about luck. It is the result of many small choices made day after day, each one pushing you a little closer to your goal.",
-      "When the rain finally stopped, the streets shone under the lamplight. People stepped outside, opened their umbrellas, and went on with their evening.",
-      "Practice does not make perfect on its own. Practice with focus and honest feedback is what slowly turns a beginner into a confident expert.",
-      "The garden was full of color in the late spring. Bright flowers leaned toward the warm light while bees moved quietly from one bloom to the next.",
-      "Good writing is simple and direct. Use short words when they work, keep your sentences clear, and trust the reader to follow your idea.",
-      "He packed a small bag, locked the door, and walked to the station. The train was on time, and within an hour the city was far behind him."
+    // ---- Snippet pool: [code, language] — short, syntactically correct, realistic patterns ----
+    // Indentation uses literal spaces (no tabs). Newlines are real \n characters.
+    const SNIPPETS = [
+      ["function add(a, b) {\n  return a + b;\n}", "javascript"],
+      ["for (let i = 0; i < 10; i++) {\n  console.log(i);\n}", "javascript"],
+      ["const doubled = numbers.map(function(n) {\n  return n * 2;\n});", "javascript"],
+      ["const evens = numbers.filter(n => n % 2 === 0);", "javascript"],
+      ["let total = 0;\nfor (const n of numbers) {\n  total += n;\n}", "javascript"],
+      ["const person = {\n  name: \"Ada\",\n  age: 30\n};", "javascript"],
+      ["async function fetchData(url) {\n  const res = await fetch(url);\n  return res.json();\n}", "javascript"],
+      ["class Animal {\n  constructor(name) {\n    this.name = name;\n  }\n}", "javascript"],
+      ["def add(a, b):\n    return a + b", "python"],
+      ["for i in range(10):\n    print(i)", "python"],
+      ["def greet(name):\n    return f\"Hello, {name}!\"", "python"],
+      ["squares = [x * x for x in range(10)]", "python"],
+      ["class Animal:\n    def __init__(self, name):\n        self.name = name", "python"],
+      ["with open(\"data.txt\") as f:\n    lines = f.readlines()", "python"],
+      ["numbers = [1, 2, 3, 4, 5]\ntotal = sum(numbers)", "python"],
+      ["def is_even(n):\n    return n % 2 == 0", "python"],
+      ["try:\n    value = int(input())\nexcept ValueError:\n    value = 0", "python"],
+      ["public int add(int a, int b) {\n    return a + b;\n}", "java"],
+      ["for (int i = 0; i < 10; i++) {\n    System.out.println(i);\n}", "java"],
+      ["public class Animal {\n    private String name;\n\n    public Animal(String name) {\n        this.name = name;\n    }\n}", "java"],
+      ["List<Integer> numbers = new ArrayList<>();\nnumbers.add(1);", "java"],
+      ["if (score >= 90) {\n    grade = \"A\";\n} else {\n    grade = \"B\";\n}", "java"]
     ];
 
     // ---- State ----
     let duration = 30;           // seconds
-    let target = "";             // current passage text
+    let target = "";             // current snippet text (comparison target, includes \n and spaces)
+    let currentLang = "";
     let timerId = null;
     let started = false;
     let finished = false;
@@ -326,7 +346,7 @@
     let typed = "";              // what the user has typed so far
     let correctCount = 0;        // correct chars (current)
     let totalCount = 0;          // total chars typed (current)
-    const BEST_KEY = "typetest_best_wpm";
+    const BEST_KEY = "typetest_code_best_wpm";
 
     // ---- Elements ----
     const passageEl = document.getElementById('passage');
@@ -343,13 +363,14 @@
     const pbBadge = document.getElementById('pbBadge');
     const shareText = document.getElementById('shareText');
     const toast = document.getElementById('toast');
+    const snippetLang = document.getElementById('snippetLang');
 
     // ---- Helpers ----
-    function pickText(){
-      let t;
-      do { t = TEXTS[Math.floor(Math.random()*TEXTS.length)]; }
-      while (TEXTS.length > 1 && t === target);
-      return t;
+    function pickSnippet(){
+      let s;
+      do { s = SNIPPETS[Math.floor(Math.random()*SNIPPETS.length)]; }
+      while (SNIPPETS.length > 1 && s[0] === target);
+      return s;
     }
 
     function getBest(){
@@ -372,6 +393,9 @@
     }
 
     // ---- Render passage with per-character coloring ----
+    // Newline characters render as a zero-width "ch" span whose textContent is "\n";
+    // combined with white-space:pre-wrap on .passage, this produces a real visual line break
+    // while each newline still participates fully in the char-by-char comparison.
     function render(){
       const frag = document.createDocumentFragment();
       correctCount = 0;
@@ -380,7 +404,6 @@
         const span = document.createElement('span');
         const tch = target[i];
         span.className = 'ch';
-        // show a visible representation but keep actual char for spaces
         span.textContent = tch;
         if (i < typed.length){
           if (typed[i] === tch){
@@ -388,7 +411,7 @@
             correctCount++;
           } else {
             span.classList.add('incorrect');
-            if (tch === ' ') span.classList.add('space');
+            if (tch === ' ' || tch === '\n') span.classList.add('space');
           }
         } else if (i === typed.length){
           span.classList.add('current');
@@ -400,7 +423,6 @@
     }
 
     function updateLiveStats(){
-      // time-based live stats
       let minutes;
       if (started && !finished){
         minutes = (Date.now() - startTime) / 60000;
@@ -438,7 +460,11 @@
       correctCount = 0;
       totalCount = 0;
       remaining = duration;
-      if (newText || !target) target = pickText();
+      if (newText || !target){
+        const s = pickSnippet();
+        target = s[0];
+        currentLang = s[1];
+      }
       hidden.value = "";
       numTime.textContent = duration;
       numWpm.textContent = "0";
@@ -446,6 +472,7 @@
       resultEl.classList.remove('show');
       pbBadge.style.display = 'none';
       toast.textContent = "";
+      snippetLang.textContent = currentLang.toUpperCase();
       render();
     }
 
@@ -455,7 +482,6 @@
       clearInterval(timerId);
       timerId = null;
 
-      // Final metrics: use actual elapsed time (capped at duration)
       const elapsedMs = started ? Math.min(Date.now() - startTime, duration*1000) : 0;
       const minutes = elapsedMs / 60000;
       const wpm = computeWpm(correctCount, minutes || (duration/60));
@@ -465,7 +491,6 @@
       numWpm.textContent = wpm;
       numAcc.textContent = acc + '%';
 
-      // best
       const prevBest = getBest();
       let best = prevBest;
       if (wpm > prevBest){
@@ -481,11 +506,11 @@
       rAcc.textContent = acc + '%';
       rChars.textContent = totalCount;
       rBest.textContent = best;
-      shareText.textContent = `I typed ${wpm} WPM with ${acc}% accuracy on a ${duration}s typing test.`;
+      shareText.textContent = `I typed ${wpm} WPM with ${acc}% accuracy on the code typing test (${currentLang}).`;
 
       resultEl.classList.add('show');
 
-      try { gtag('event', 'typing_test_complete', { wpm: wpm, accuracy: acc, duration: duration }); } catch(e){}
+      try { gtag('event', 'code_test_complete', { wpm: wpm, accuracy: acc, duration: duration, language: currentLang }); } catch(e){}
     }
 
     // ---- Input handling ----
@@ -506,7 +531,6 @@
     hidden.addEventListener('input', function(){
       if (finished) { hidden.value = typed; return; }
       let val = hidden.value;
-      // limit to target length
       if (val.length > target.length) val = val.slice(0, target.length);
       typed = val;
 
@@ -517,25 +541,25 @@
       render();
       updateLiveStats();
 
-      // finished by completing the whole passage
       if (typed.length >= target.length){
         finish();
       }
     });
 
-    // Block the Enter key from doing anything odd; allow normal typing/backspace
+    // Note: Enter is intentionally NOT blocked here (unlike the prose typing tests) —
+    // the hidden control is a <textarea>, so pressing Enter inserts a real "\n" character,
+    // which is exactly what's needed to match a newline in a multi-line code snippet.
+    // We only guard against Tab moving focus away from the textarea.
     hidden.addEventListener('keydown', function(e){
-      if (e.key === 'Enter') e.preventDefault();
+      if (e.key === 'Tab') e.preventDefault();
     });
 
-    // Typing anywhere on the page focuses the input (nice UX), except when interacting with buttons/inputs
     document.addEventListener('keydown', function(e){
       const tag = (e.target.tagName || '').toLowerCase();
       if (e.target === hidden) return;
       if (tag === 'button' || tag === 'input' || tag === 'textarea' || tag === 'a') return;
       if (e.metaKey || e.ctrlKey || e.altKey) return;
-      // only react to characters and backspace
-      if (e.key.length === 1 || e.key === 'Backspace'){
+      if (e.key.length === 1 || e.key === 'Backspace' || e.key === 'Enter'){
         focusInput();
       }
     });
@@ -547,7 +571,7 @@
       [].forEach.call(this.querySelectorAll('button'), b => b.classList.remove('active'));
       btn.classList.add('active');
       duration = parseInt(btn.dataset.dur, 10);
-      resetTest(false); // keep same text, just reset clock
+      resetTest(false);
       focusInput();
     });
 
@@ -560,7 +584,7 @@
       focusInput();
     });
     document.getElementById('tryAgainBtn').addEventListener('click', function(){
-      resetTest(true);   // fresh text on "Try again"
+      resetTest(true);
       focusInput();
     });
 
@@ -584,7 +608,6 @@
     // ---- Init ----
     refreshBestDisplay();
     resetTest(true);
-    // auto-focus on load for desktop convenience
     setTimeout(focusInput, 200);
   })();
   </script>

@@ -4,19 +4,19 @@
   <script>(function(){if(location.hostname.indexOf(".pages.dev")>-1){location.replace("https://typing.quietools.com"+location.pathname+location.search+location.hash);}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Typing Speed Test — Free Online WPM Test | TypeTest</title>
-  <meta name="description" content="Free online typing speed test. Measure your WPM and accuracy in 15, 30, or 60 seconds with real English passages. No signup — runs entirely in your browser.">
-  <meta name="keywords" content="typing speed test, wpm test, typing test online, how fast can i type, words per minute test, typing accuracy">
+  <title>Typing Test by Word Count — 10, 25, 50, 100 Words | TypeTest</title>
+  <meta name="description" content="Free typing test by word count. Choose 10, 25, 50, or 100 words instead of a timer, then see your WPM and accuracy. No signup, runs entirely in your browser.">
+  <meta name="keywords" content="typing test 50 words, typing test by word count, 10 word typing test, 100 word typing test, word count typing test">
   <meta name="robots" content="index, follow">
-  <meta property="og:title" content="Typing Speed Test — Free Online WPM Test">
+  <meta property="og:title" content="Typing Test by Word Count — 10, 25, 50, 100 Words">
   <meta property="og:image" content="https://typing.quietools.com/og-image.jpg">
   <meta property="og:image:width" content="1376">
   <meta property="og:image:height" content="768">
   <meta name="twitter:image" content="https://typing.quietools.com/og-image.jpg">
-  <meta property="og:description" content="Test your typing speed and accuracy in 15, 30, or 60 seconds. Free, instant, no signup. Runs in your browser.">
+  <meta property="og:description" content="Pick a word count — 10, 25, 50, or 100 — and type until you hit it. See your WPM and accuracy instantly. Free, instant, no signup.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://typing.quietools.com/">
-  <link rel="canonical" href="https://typing.quietools.com/">
+  <meta property="og:url" content="https://typing.quietools.com/word-count-typing-test">
+  <link rel="canonical" href="https://typing.quietools.com/word-count-typing-test">
   <meta name="twitter:card" content="summary">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-9QKMV5JQL5"></script>
@@ -25,6 +25,17 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-9QKMV5JQL5');
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"How is a typing test by word count different from a timed test?","acceptedAnswer":{"@type":"Answer","text":"A timed test ends after a fixed number of seconds no matter how much you've typed. A word-count test ends after you finish typing a fixed number of words, no matter how long it takes, so your result reflects a consistent amount of text every time."}},
+      {"@type":"Question","name":"Which word count should I choose?","acceptedAnswer":{"@type":"Answer","text":"10 or 25 words is a quick check of your current speed. 50 words is a good default for regular practice. 100 words gives the most stable, repeatable WPM reading because early hesitation matters less over a longer passage."}},
+      {"@type":"Question","name":"Is WPM calculated the same way as the timed typing test?","acceptedAnswer":{"@type":"Answer","text":"Yes. WPM is still correctly typed characters divided by five, scaled to a full minute, based on the actual time it took you to finish the selected word count. Accuracy is calculated the same way too."}}
+    ]
+  }
   </script>
   <style>
     :root{
@@ -124,14 +135,12 @@
     .ch.correct{color:var(--text)}
     .ch.incorrect{color:var(--err);background:var(--errbg);border-radius:3px}
     .ch.incorrect.space{background:var(--errbg)}
-    /* blinking caret on the current character */
     .ch.current::before{
       content:"";position:absolute;left:-1px;top:.18em;bottom:.18em;width:2px;
       background:var(--caret);border-radius:2px;animation:blink 1s steps(1) infinite;
     }
     .passage.blurred .ch.current::before{animation:none;opacity:.4}
     @keyframes blink{50%{opacity:0}}
-    /* hidden input that actually captures keystrokes */
     #hiddenInput{position:absolute;opacity:0;left:-9999px;top:0;width:1px;height:1px}
 
     .restart-row{display:flex;justify-content:center;margin-top:1rem}
@@ -164,6 +173,8 @@
     .seo ul{color:var(--muted);margin:.2rem 0 .8rem 1.2rem}
     .seo li{margin-bottom:.3rem}
     .seo code{background:var(--panel);border:1px solid var(--border);border-radius:5px;padding:.05rem .35rem;font-size:.9em}
+    .faq dt{font-weight:700;color:var(--text);margin-top:1rem}
+    .faq dd{margin:.2rem 0 .6rem 0;color:var(--muted)}
     footer{border-top:1px solid var(--border);padding:2rem 1.5rem;text-align:center;color:var(--muted);font-size:.85rem;margin-top:3rem}
 
     @media (max-width:640px){
@@ -183,14 +194,14 @@
   </header>
 
   <main>
-    <h1>Typing Speed Test</h1>
-    <p class="lead">Find out how fast you can type. Pick a duration, start typing the passage below, and get your WPM and accuracy instantly. No signup — everything runs in your browser.</p>
+    <h1>Typing Test by Word Count</h1>
+    <p class="lead">Pick a word count instead of a timer — 10, 25, 50, or 100 words — and the test ends the moment you finish typing them. Same WPM and accuracy scoring as the main test.</p>
 
     <nav class="tools-nav" aria-label="Other typing tests">
-      <a href="/" class="current">Speed Test</a>
+      <a href="/">Speed Test</a>
       <a href="/quote-typing-test">Quote Test</a>
       <a href="/code-typing-test">Code Test</a>
-      <a href="/word-count-typing-test">Word Count Test</a>
+      <a href="/word-count-typing-test" class="current">Word Count Test</a>
     </nav>
 
     <!-- AD-SLOT:Top | AdSense 승인 후 교체 -->
@@ -198,17 +209,18 @@
 
     <div class="controls">
       <div class="seg" id="modeSeg">
-        <span class="seg-label">Time</span>
-        <button data-dur="15">15s</button>
-        <button data-dur="30" class="active">30s</button>
-        <button data-dur="60">60s</button>
+        <span class="seg-label">Words</span>
+        <button data-words="10">10</button>
+        <button data-words="25" class="active">25</button>
+        <button data-words="50">50</button>
+        <button data-words="100">100</button>
       </div>
       <div class="spacer"></div>
       <button class="btn" id="newTextBtn" title="Load a different passage">New text</button>
     </div>
 
     <div class="stats">
-      <div class="stat" id="statTime"><div class="num" id="numTime">30</div><div class="lbl">Seconds left</div></div>
+      <div class="stat" id="statTime"><div class="num" id="numTime">0/25</div><div class="lbl">Words typed</div></div>
       <div class="stat" id="statWpm"><div class="num" id="numWpm">0</div><div class="lbl">WPM</div></div>
       <div class="stat" id="statAcc"><div class="num" id="numAcc">100%</div><div class="lbl">Accuracy</div></div>
     </div>
@@ -242,46 +254,32 @@
     <div class="ad-slot">Advertisement</div>
 
     <section class="seo">
-      <h2>How to improve your typing speed</h2>
-      <p>Improving your typing speed is mostly about building muscle memory and removing bad habits. A few proven tips:</p>
+      <h2>What is a typing test by word count?</h2>
+      <p>Instead of stopping after a fixed number of seconds, this test stops after a fixed number of <strong>words</strong>. You choose the target — 10, 25, 50, or 100 — and the passage is generated to match that exact count. The test ends the instant you finish typing it, and your WPM is calculated from however long that actually took you.</p>
+
+      <h2>How to use it</h2>
       <ul>
-        <li><strong>Use touch typing.</strong> Keep your fingers on the home row (<code>ASDF</code> for the left hand, <code>JKL;</code> for the right) and reach for each key without looking at the keyboard.</li>
-        <li><strong>Prioritize accuracy over raw speed.</strong> Every mistake costs you a backspace and breaks your rhythm. Speed naturally follows once your accuracy is consistently high.</li>
-        <li><strong>Practice in short, regular sessions.</strong> Ten focused minutes a day beats a single long session once a week.</li>
-        <li><strong>Look at the screen, not your hands.</strong> Trusting your fingers is what unlocks real speed.</li>
-        <li><strong>Warm up.</strong> Your first run of the day is usually your slowest — take a couple of tries before reading too much into a score.</li>
+        <li><strong>Pick a word count.</strong> Choose 10, 25, 50, or 100 words from the selector above.</li>
+        <li><strong>Start typing.</strong> Click the passage or start typing to begin. The clock starts on your first keystroke.</li>
+        <li><strong>Finish the passage.</strong> The test ends automatically once you've typed the full word count — there's no timer to watch.</li>
+        <li><strong>Track your progress.</strong> The words-typed counter shows how far through the passage you are in real time.</li>
       </ul>
 
-      <h2>What is WPM?</h2>
-      <p>WPM stands for <strong>words per minute</strong>. Because real words vary in length, typing tests use a standardized "word" of <strong>five characters</strong> (including spaces). So WPM is calculated as the number of characters you typed divided by five, scaled to a full minute:</p>
-      <p><code>WPM = (correct characters ÷ 5) ÷ (minutes elapsed)</code></p>
-      <p>For context, the average adult types around 40 WPM, a proficient typist is in the 65–80 WPM range, and professional typists often exceed 100 WPM. This test counts only correctly typed characters toward your WPM, so it reflects <em>usable</em> speed rather than how fast you can mash keys.</p>
+      <h2>Word count vs. timed tests</h2>
+      <p>A timed test (like our <a href="/">standard 15/30/60-second typing test</a>) is great for a quick pulse check, but the amount of text you type varies with your speed. A word-count test flips that: the amount of text is fixed, so it's a more consistent way to compare two attempts, or to compare your speed against someone else who typed the exact same length of text.</p>
 
-      <h2>How accuracy is calculated</h2>
-      <p>Accuracy is the share of your keystrokes that matched the target text. It is calculated as:</p>
-      <p><code>Accuracy = (correct characters ÷ total characters typed) × 100%</code></p>
-      <p>Every character you enter counts toward the total — including ones you later correct — so accuracy rewards getting it right the first time. A score in the high 90s is excellent; if yours drops below about 90%, slowing down slightly will usually raise both your accuracy <em>and</em> your net WPM, since you'll waste less time on corrections.</p>
+      <h2>Which word count should you pick?</h2>
+      <p><strong>10 or 25 words</strong> is fast — good for a quick warm-up or a repeatable short benchmark. <strong>50 words</strong> is a solid everyday default that balances speed and stability. <strong>100 words</strong> takes longer but smooths out the effect of a slow start, giving you the most stable WPM reading. If you want a change of pace, the <a href="/quote-typing-test">quote typing test</a> and <a href="/code-typing-test">code typing test</a> use the same WPM math with different source material.</p>
 
-      <h2>More ways to practice</h2>
-      <p>Want a different kind of challenge? Try one of these free variations, all with the same WPM and accuracy scoring:</p>
-      <ul>
-        <li><a href="/quote-typing-test">Quote typing test</a> — type real, correctly-attributed quotes from books, movies, and history.</li>
-        <li><a href="/code-typing-test">Code typing test</a> — practice typing real Python, JavaScript, and Java snippets.</li>
-        <li><a href="/word-count-typing-test">Typing test by word count</a> — pick 10, 25, 50, or 100 words instead of a timer.</li>
-      </ul>
-
-      <h2>Typing guides</h2>
-      <p>Want to get faster? These free guides walk you through the techniques that actually move the needle:</p>
-      <ul>
-        <li><a href="/guides/how-to-type-faster.html">How to type faster: 8 proven tips</a></li>
-        <li><a href="/guides/how-to-improve-typing-accuracy.html">How to improve typing accuracy</a></li>
-        <li><a href="/guides/common-typing-mistakes.html">7 common typing mistakes and how to fix them</a></li>
-        <li><a href="/guides/proper-finger-placement.html">Proper finger placement for touch typing</a></li>
-        <li><a href="/guides/touch-typing-tips-for-beginners.html">Touch typing tips for beginners</a></li>
-        <li><a href="/guides/typing-practice-for-kids.html">Typing practice for kids: a parent's guide</a></li>
-        <li><a href="/guides/average-typing-speed-by-age.html">Average typing speed by age</a></li>
-        <li><a href="/guides/what-is-a-good-wpm.html">What is a good WPM?</a></li>
-      </ul>
+      <h2>Frequently asked questions</h2>
+      <dl class="faq">
+        <dt>How is a typing test by word count different from a timed test?</dt>
+        <dd>A timed test ends after a fixed number of seconds no matter how much you've typed. A word-count test ends after you finish typing a fixed number of words, no matter how long it takes, so your result reflects a consistent amount of text every time.</dd>
+        <dt>Which word count should I choose?</dt>
+        <dd>10 or 25 words is a quick check of your current speed. 50 words is a good default for regular practice. 100 words gives the most stable, repeatable WPM reading because early hesitation matters less over a longer passage.</dd>
+        <dt>Is WPM calculated the same way as the timed typing test?</dt>
+        <dd>Yes. WPM is still correctly typed characters divided by five, scaled to a full minute, based on the actual time it took you to finish the selected word count. Accuracy is calculated the same way too.</dd>
+      </dl>
     </section>
   </main>
 
@@ -299,34 +297,54 @@
   (function(){
     "use strict";
 
-    // ---- Text pool (common English words & sentences) ----
-    const TEXTS = [
-      "The quick brown fox jumps over the lazy dog while the sun sets slowly behind the quiet hills and a cool breeze drifts across the open field.",
-      "Learning to type quickly is a skill that improves with steady practice. Focus on accuracy first and let your speed grow naturally over time.",
-      "Every morning she made a cup of coffee, opened the window, and listened to the city wake up. The small ritual gave her a calm start to the day.",
-      "Technology changes the way we live and work, but the basics still matter. Clear thinking, honest effort, and a little patience go a long way.",
-      "A good book can take you anywhere. With a single page you might travel across oceans, meet strange people, and return home before dinner.",
-      "The river moved slowly under the old stone bridge. Children threw small pebbles into the water and watched the ripples spread toward the shore.",
-      "Success is rarely about luck. It is the result of many small choices made day after day, each one pushing you a little closer to your goal.",
-      "When the rain finally stopped, the streets shone under the lamplight. People stepped outside, opened their umbrellas, and went on with their evening.",
-      "Practice does not make perfect on its own. Practice with focus and honest feedback is what slowly turns a beginner into a confident expert.",
-      "The garden was full of color in the late spring. Bright flowers leaned toward the warm light while bees moved quietly from one bloom to the next.",
-      "Good writing is simple and direct. Use short words when they work, keep your sentences clear, and trust the reader to follow your idea.",
-      "He packed a small bag, locked the door, and walked to the station. The train was on time, and within an hour the city was far behind him."
+    // ---- Sentence pool (used to assemble a passage of an exact word count) ----
+    const POOL = [
+      "The quick brown fox jumps over the lazy dog while the sun sets slowly behind the quiet hills.",
+      "Learning to type quickly is a skill that improves with steady practice and daily repetition.",
+      "Every morning she made a cup of coffee and listened to the city slowly wake up outside.",
+      "Clear thinking and honest effort matter more than any shortcut you might be tempted to try.",
+      "A good book can take you anywhere, across oceans and strange cities, before you even notice.",
+      "The river moved slowly under the old stone bridge as children tossed pebbles into the water.",
+      "Success rarely comes from luck alone; it comes from many small choices made day after day.",
+      "When the rain finally stopped the streets shone brightly under the soft glow of the lamplight.",
+      "Practice with focus and honest feedback is what turns a beginner into a confident expert.",
+      "The garden was full of color in late spring as bright flowers leaned toward the warm light.",
+      "Good writing is simple and direct; keep your sentences clear and trust the reader to follow.",
+      "He packed a small bag, locked the door, and walked calmly to the station in the early light."
     ];
 
+    // Build a passage with EXACTLY `wordCount` words by concatenating shuffled sentences
+    // from the pool until there are enough words, then trimming to the exact count.
+    function buildPassage(wordCount){
+      const shuffled = POOL.slice().sort(() => Math.random() - 0.5);
+      let words = [];
+      let idx = 0;
+      while (words.length < wordCount){
+        const sentence = shuffled[idx % shuffled.length];
+        words = words.concat(sentence.split(/\s+/));
+        idx++;
+      }
+      words = words.slice(0, wordCount);
+      // Ensure the passage ends with terminal punctuation for readability.
+      let last = words[words.length - 1];
+      if (!/[.!?]$/.test(last)){
+        last = last.replace(/[,;:]$/, '') + '.';
+        words[words.length - 1] = last;
+      }
+      return words.join(' ');
+    }
+
     // ---- State ----
-    let duration = 30;           // seconds
-    let target = "";             // current passage text
+    let wordTarget = 25;         // target word count
+    let target = "";             // current passage text (comparison target)
     let timerId = null;
     let started = false;
     let finished = false;
     let startTime = 0;
-    let remaining = duration;
     let typed = "";              // what the user has typed so far
     let correctCount = 0;        // correct chars (current)
     let totalCount = 0;          // total chars typed (current)
-    const BEST_KEY = "typetest_best_wpm";
+    const BEST_KEY = "typetest_wordcount_best_wpm";
 
     // ---- Elements ----
     const passageEl = document.getElementById('passage');
@@ -345,13 +363,6 @@
     const toast = document.getElementById('toast');
 
     // ---- Helpers ----
-    function pickText(){
-      let t;
-      do { t = TEXTS[Math.floor(Math.random()*TEXTS.length)]; }
-      while (TEXTS.length > 1 && t === target);
-      return t;
-    }
-
     function getBest(){
       const v = parseInt(localStorage.getItem(BEST_KEY) || "0", 10);
       return isNaN(v) ? 0 : v;
@@ -371,6 +382,21 @@
       return Math.round((correct / total) * 100);
     }
 
+    // Count how many words are FULLY typed and correct so far (space-delimited,
+    // counting a word as "done" once the following space or end-of-text is reached).
+    function countWordsTyped(){
+      const upTo = typed.length;
+      if (upTo === 0) return 0;
+      let count = 0;
+      for (let i = 0; i < upTo && i < target.length; i++){
+        if (target[i] === ' ' ) count++;
+      }
+      // plus the (partial or final) word currently being typed counts once the
+      // whole passage is complete
+      if (upTo >= target.length) count++;
+      return count;
+    }
+
     // ---- Render passage with per-character coloring ----
     function render(){
       const frag = document.createDocumentFragment();
@@ -380,7 +406,6 @@
         const span = document.createElement('span');
         const tch = target[i];
         span.className = 'ch';
-        // show a visible representation but keep actual char for spaces
         span.textContent = tch;
         if (i < typed.length){
           if (typed[i] === tch){
@@ -400,7 +425,6 @@
     }
 
     function updateLiveStats(){
-      // time-based live stats
       let minutes;
       if (started && !finished){
         minutes = (Date.now() - startTime) / 60000;
@@ -409,19 +433,14 @@
       }
       numWpm.textContent = computeWpm(correctCount, minutes);
       numAcc.textContent = computeAcc(correctCount, totalCount) + '%';
+      const wordsDone = Math.min(countWordsTyped(), wordTarget);
+      numTime.textContent = wordsDone + '/' + wordTarget;
     }
 
-    // ---- Timer ----
+    // ---- Elapsed-time ticker (no countdown here — just keeps live WPM refreshing) ----
     function tick(){
-      const elapsed = (Date.now() - startTime) / 1000;
-      remaining = Math.max(0, duration - elapsed);
-      numTime.textContent = Math.ceil(remaining);
       updateLiveStats();
-      if (remaining <= 0){
-        finish();
-      }
     }
-
     function startTimer(){
       started = true;
       startTime = Date.now();
@@ -437,10 +456,9 @@
       typed = "";
       correctCount = 0;
       totalCount = 0;
-      remaining = duration;
-      if (newText || !target) target = pickText();
+      if (newText || !target) target = buildPassage(wordTarget);
       hidden.value = "";
-      numTime.textContent = duration;
+      numTime.textContent = "0/" + wordTarget;
       numWpm.textContent = "0";
       numAcc.textContent = "100%";
       resultEl.classList.remove('show');
@@ -455,17 +473,15 @@
       clearInterval(timerId);
       timerId = null;
 
-      // Final metrics: use actual elapsed time (capped at duration)
-      const elapsedMs = started ? Math.min(Date.now() - startTime, duration*1000) : 0;
+      const elapsedMs = started ? (Date.now() - startTime) : 0;
       const minutes = elapsedMs / 60000;
-      const wpm = computeWpm(correctCount, minutes || (duration/60));
+      const wpm = computeWpm(correctCount, minutes || (1/60));
       const acc = computeAcc(correctCount, totalCount);
 
-      numTime.textContent = "0";
+      numTime.textContent = wordTarget + '/' + wordTarget;
       numWpm.textContent = wpm;
       numAcc.textContent = acc + '%';
 
-      // best
       const prevBest = getBest();
       let best = prevBest;
       if (wpm > prevBest){
@@ -481,11 +497,11 @@
       rAcc.textContent = acc + '%';
       rChars.textContent = totalCount;
       rBest.textContent = best;
-      shareText.textContent = `I typed ${wpm} WPM with ${acc}% accuracy on a ${duration}s typing test.`;
+      shareText.textContent = `I typed ${wpm} WPM with ${acc}% accuracy on a ${wordTarget}-word typing test.`;
 
       resultEl.classList.add('show');
 
-      try { gtag('event', 'typing_test_complete', { wpm: wpm, accuracy: acc, duration: duration }); } catch(e){}
+      try { gtag('event', 'wordcount_test_complete', { wpm: wpm, accuracy: acc, word_count: wordTarget }); } catch(e){}
     }
 
     // ---- Input handling ----
@@ -506,7 +522,6 @@
     hidden.addEventListener('input', function(){
       if (finished) { hidden.value = typed; return; }
       let val = hidden.value;
-      // limit to target length
       if (val.length > target.length) val = val.slice(0, target.length);
       typed = val;
 
@@ -517,24 +532,20 @@
       render();
       updateLiveStats();
 
-      // finished by completing the whole passage
       if (typed.length >= target.length){
         finish();
       }
     });
 
-    // Block the Enter key from doing anything odd; allow normal typing/backspace
     hidden.addEventListener('keydown', function(e){
       if (e.key === 'Enter') e.preventDefault();
     });
 
-    // Typing anywhere on the page focuses the input (nice UX), except when interacting with buttons/inputs
     document.addEventListener('keydown', function(e){
       const tag = (e.target.tagName || '').toLowerCase();
       if (e.target === hidden) return;
       if (tag === 'button' || tag === 'input' || tag === 'textarea' || tag === 'a') return;
       if (e.metaKey || e.ctrlKey || e.altKey) return;
-      // only react to characters and backspace
       if (e.key.length === 1 || e.key === 'Backspace'){
         focusInput();
       }
@@ -542,12 +553,12 @@
 
     // ---- Controls ----
     document.getElementById('modeSeg').addEventListener('click', function(e){
-      const btn = e.target.closest('button[data-dur]');
+      const btn = e.target.closest('button[data-words]');
       if (!btn) return;
       [].forEach.call(this.querySelectorAll('button'), b => b.classList.remove('active'));
       btn.classList.add('active');
-      duration = parseInt(btn.dataset.dur, 10);
-      resetTest(false); // keep same text, just reset clock
+      wordTarget = parseInt(btn.dataset.words, 10);
+      resetTest(true); // new word target needs a freshly-built passage
       focusInput();
     });
 
@@ -560,7 +571,7 @@
       focusInput();
     });
     document.getElementById('tryAgainBtn').addEventListener('click', function(){
-      resetTest(true);   // fresh text on "Try again"
+      resetTest(true);
       focusInput();
     });
 
@@ -584,7 +595,6 @@
     // ---- Init ----
     refreshBestDisplay();
     resetTest(true);
-    // auto-focus on load for desktop convenience
     setTimeout(focusInput, 200);
   })();
   </script>
