@@ -24,8 +24,9 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-9QKMV5JQL5');
+    if(location.hostname.indexOf('.pages.dev')===-1){gtag('config','G-9QKMV5JQL5',{linker:{domains:['quietools.com','calc.quietools.com','image.quietools.com','dev.quietools.com','typing.quietools.com','invoice.quietools.com']}});}
   </script>
+  <script src="/assets/analytics.js" defer></script>
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -198,9 +199,9 @@
     <p class="lead">Pick a word count instead of a timer — 10, 25, 50, or 100 words — and the test ends the moment you finish typing them. Same WPM and accuracy scoring as the main test.</p>
 
     <nav class="tools-nav" aria-label="Other typing tests">
-      <a href="/">Speed Test</a>
-      <a href="/quote-typing-test">Quote Test</a>
-      <a href="/code-typing-test">Code Test</a>
+      <a href="/" data-nav>Speed Test</a>
+      <a href="/quote-typing-test" data-nav>Quote Test</a>
+      <a href="/code-typing-test" data-nav>Code Test</a>
       <a href="/word-count-typing-test" class="current">Word Count Test</a>
     </nav>
 
@@ -445,6 +446,7 @@
       started = true;
       startTime = Date.now();
       timerId = setInterval(tick, 100);
+      if (window.qtEvent) qtEvent('test_start', { test_type: 'word-count' });
     }
 
     // ---- Lifecycle ----
@@ -502,6 +504,7 @@
       resultEl.classList.add('show');
 
       try { gtag('event', 'wordcount_test_complete', { wpm: wpm, accuracy: acc, word_count: wordTarget }); } catch(e){}
+      if (window.qtEvent) qtEvent('test_complete', { test_type: 'word-count', wpm: wpm, accuracy: acc });
     }
 
     // ---- Input handling ----
@@ -577,6 +580,7 @@
 
     document.getElementById('copyShareBtn').addEventListener('click', function(){
       const text = shareText.textContent;
+      if (window.qtEvent) qtEvent('copy_result', { test_type: 'word-count' });
       const done = () => { toast.textContent = "Copied to clipboard!"; setTimeout(()=>toast.textContent="", 2200); };
       if (navigator.clipboard && navigator.clipboard.writeText){
         navigator.clipboard.writeText(text).then(done).catch(fallbackCopy);

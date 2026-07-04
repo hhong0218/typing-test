@@ -24,8 +24,9 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-9QKMV5JQL5');
+    if(location.hostname.indexOf('.pages.dev')===-1){gtag('config','G-9QKMV5JQL5',{linker:{domains:['quietools.com','calc.quietools.com','image.quietools.com','dev.quietools.com','typing.quietools.com','invoice.quietools.com']}});}
   </script>
+  <script src="/assets/analytics.js" defer></script>
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -204,10 +205,10 @@
     <p class="lead">Type real quotes from books, movies, and history instead of generic passages. Pick a duration, start typing, and get your WPM and accuracy instantly. No signup — everything runs in your browser.</p>
 
     <nav class="tools-nav" aria-label="Other typing tests">
-      <a href="/">Speed Test</a>
+      <a href="/" data-nav>Speed Test</a>
       <a href="/quote-typing-test" class="current">Quote Test</a>
-      <a href="/code-typing-test">Code Test</a>
-      <a href="/word-count-typing-test">Word Count Test</a>
+      <a href="/code-typing-test" data-nav>Code Test</a>
+      <a href="/word-count-typing-test" data-nav>Word Count Test</a>
     </nav>
 
     <!-- AD-SLOT:Top | AdSense 승인 후 교체 -->
@@ -450,6 +451,7 @@
       started = true;
       startTime = Date.now();
       timerId = setInterval(tick, 100);
+      if (window.qtEvent) qtEvent('test_start', { test_type: 'quote' });
     }
 
     // ---- Lifecycle ----
@@ -513,6 +515,7 @@
       resultEl.classList.add('show');
 
       try { gtag('event', 'quote_test_complete', { wpm: wpm, accuracy: acc, duration: duration, author: currentAuthor }); } catch(e){}
+      if (window.qtEvent) qtEvent('test_complete', { test_type: 'quote', wpm: wpm, accuracy: acc });
     }
 
     // ---- Input handling ----
@@ -588,6 +591,7 @@
 
     document.getElementById('copyShareBtn').addEventListener('click', function(){
       const text = shareText.textContent;
+      if (window.qtEvent) qtEvent('copy_result', { test_type: 'quote' });
       const done = () => { toast.textContent = "Copied to clipboard!"; setTimeout(()=>toast.textContent="", 2200); };
       if (navigator.clipboard && navigator.clipboard.writeText){
         navigator.clipboard.writeText(text).then(done).catch(fallbackCopy);

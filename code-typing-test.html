@@ -24,8 +24,9 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-9QKMV5JQL5');
+    if(location.hostname.indexOf('.pages.dev')===-1){gtag('config','G-9QKMV5JQL5',{linker:{domains:['quietools.com','calc.quietools.com','image.quietools.com','dev.quietools.com','typing.quietools.com','invoice.quietools.com']}});}
   </script>
+  <script src="/assets/analytics.js" defer></script>
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -205,10 +206,10 @@
     <p class="lead">Practice typing real code instead of prose. Snippets in Python, JavaScript, and Java with correct indentation, brackets, and syntax. Pick a duration, start typing, and get your WPM and accuracy instantly.</p>
 
     <nav class="tools-nav" aria-label="Other typing tests">
-      <a href="/">Speed Test</a>
-      <a href="/quote-typing-test">Quote Test</a>
+      <a href="/" data-nav>Speed Test</a>
+      <a href="/quote-typing-test" data-nav>Quote Test</a>
       <a href="/code-typing-test" class="current">Code Test</a>
-      <a href="/word-count-typing-test">Word Count Test</a>
+      <a href="/word-count-typing-test" data-nav>Word Count Test</a>
     </nav>
 
     <!-- AD-SLOT:Top | AdSense 승인 후 교체 -->
@@ -448,6 +449,7 @@
       started = true;
       startTime = Date.now();
       timerId = setInterval(tick, 100);
+      if (window.qtEvent) qtEvent('test_start', { test_type: 'code' });
     }
 
     // ---- Lifecycle ----
@@ -511,6 +513,7 @@
       resultEl.classList.add('show');
 
       try { gtag('event', 'code_test_complete', { wpm: wpm, accuracy: acc, duration: duration, language: currentLang }); } catch(e){}
+      if (window.qtEvent) qtEvent('test_complete', { test_type: 'code', wpm: wpm, accuracy: acc });
     }
 
     // ---- Input handling ----
@@ -590,6 +593,7 @@
 
     document.getElementById('copyShareBtn').addEventListener('click', function(){
       const text = shareText.textContent;
+      if (window.qtEvent) qtEvent('copy_result', { test_type: 'code' });
       const done = () => { toast.textContent = "Copied to clipboard!"; setTimeout(()=>toast.textContent="", 2200); };
       if (navigator.clipboard && navigator.clipboard.writeText){
         navigator.clipboard.writeText(text).then(done).catch(fallbackCopy);

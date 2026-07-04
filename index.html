@@ -24,8 +24,9 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-9QKMV5JQL5');
+    if(location.hostname.indexOf('.pages.dev')===-1){gtag('config','G-9QKMV5JQL5',{linker:{domains:['quietools.com','calc.quietools.com','image.quietools.com','dev.quietools.com','typing.quietools.com','invoice.quietools.com']}});}
   </script>
+  <script src="/assets/analytics.js" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -238,9 +239,9 @@
 
     <nav class="tools-nav" aria-label="Other typing tests">
       <a href="/" class="current">Speed Test</a>
-      <a href="/quote-typing-test">Quote Test</a>
-      <a href="/code-typing-test">Code Test</a>
-      <a href="/word-count-typing-test">Word Count Test</a>
+      <a href="/quote-typing-test" data-nav>Quote Test</a>
+      <a href="/code-typing-test" data-nav>Code Test</a>
+      <a href="/word-count-typing-test" data-nav>Word Count Test</a>
     </nav>
 
     <!-- AD-SLOT:Top | AdSense 승인 후 교체 -->
@@ -476,6 +477,7 @@
       started = true;
       startTime = Date.now();
       timerId = setInterval(tick, 100);
+      if (window.qtEvent) qtEvent('test_start', { test_type: 'speed' });
     }
 
     // ---- Lifecycle ----
@@ -536,6 +538,7 @@
       resultEl.classList.add('show');
 
       try { gtag('event', 'typing_test_complete', { wpm: wpm, accuracy: acc, duration: duration }); } catch(e){}
+      if (window.qtEvent) qtEvent('test_complete', { test_type: 'speed', wpm: wpm, accuracy: acc });
     }
 
     // ---- Input handling ----
@@ -616,6 +619,7 @@
 
     document.getElementById('copyShareBtn').addEventListener('click', function(){
       const text = shareText.textContent;
+      if (window.qtEvent) qtEvent('copy_result', { test_type: 'speed' });
       const done = () => { toast.textContent = "Copied to clipboard!"; setTimeout(()=>toast.textContent="", 2200); };
       if (navigator.clipboard && navigator.clipboard.writeText){
         navigator.clipboard.writeText(text).then(done).catch(fallbackCopy);
