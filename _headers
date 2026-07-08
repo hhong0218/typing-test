@@ -1,0 +1,6 @@
+# Cloudflare Pages headers. Rules are cumulative (merged across matching paths),
+# so do NOT add a global frame-ancestors lock on /* — it would break embeds.
+# Only the embed widgets are allowed to be framed on any site (backlink engine).
+/embed/*
+  Content-Security-Policy: frame-ancestors *
+  X-Robots-Tag: noindex

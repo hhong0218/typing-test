@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>(function(){if(location.hostname.indexOf(".pages.dev")>-1){location.replace("https://typing.quietools.com"+location.pathname+location.search+location.hash);}})();</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WPM Typing Test — Embeddable Widget | TypeTest</title>
+  <meta name="description" content="Embeddable WPM typing speed test widget by typing.quietools.com. Type the passage and get your words-per-minute and accuracy instantly.">
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://typing.quietools.com/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9QKMV5JQL5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    if(location.hostname.indexOf('.pages.dev')===-1){gtag('config','G-9QKMV5JQL5',{linker:{domains:['quietools.com','calc.quietools.com','image.quietools.com','dev.quietools.com','typing.quietools.com','invoice.quietools.com']}});}
+  </script>
+  <script src="/assets/analytics.js" defer></script>
+  <style>
+    :root{
+      --bg:#0f1320;--bg2:#151a2b;--panel:#1a2036;--border:#2a3252;
+      --text:#e8ecf6;--muted:#8893b4;--dim:#5a6488;
+      --accent:#7c9cff;--accent2:#a78bfa;
+      --ok:#4ade80;--err:#fb7185;--errbg:rgba(251,113,133,.18);
+      --untyped:#5a6488;--caret:#7c9cff;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{-webkit-text-size-adjust:100%}
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+      background:radial-gradient(1200px 600px at 50% -10%,#1b2340 0%,var(--bg) 55%),var(--bg);
+      color:var(--text);line-height:1.6;
+    }
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .embed-wrap{max-width:760px;margin:0 auto;padding:1rem}
+    button{font-family:inherit}
+    .btn{
+      background:var(--panel);color:var(--text);border:1px solid var(--border);border-radius:9px;
+      padding:.5rem 1rem;font-size:.9rem;font-weight:600;cursor:pointer;transition:.15s;
+    }
+    .btn:hover{border-color:var(--accent);color:#fff}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#0f1320;border-color:transparent}
+    .btn.primary:hover{filter:brightness(1.07)}
+
+    /* Controls */
+    .controls{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;margin-bottom:1rem}
+    .seg{display:inline-flex;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:.25rem;gap:.25rem}
+    .seg-label{font-size:.78rem;color:var(--muted);align-self:center;margin-right:.15rem}
+    .seg button{
+      background:transparent;color:var(--muted);border:none;border-radius:7px;
+      padding:.45rem .8rem;font-size:.9rem;font-weight:600;cursor:pointer;transition:.15s;font-variant-numeric:tabular-nums;
+    }
+    .seg button:hover{color:var(--text)}
+    .seg button.active{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#0f1320}
+    .spacer{flex:1}
+
+    /* Live stats */
+    .stats{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:1rem}
+    .stat{
+      flex:1;min-width:90px;background:var(--panel);border:1px solid var(--border);
+      border-radius:12px;padding:.7rem .9rem;text-align:center;
+    }
+    .stat .num{font-size:1.6rem;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+    .stat .lbl{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:.15rem}
+    #statTime .num{color:var(--accent)}
+    #statWpm .num{color:var(--accent2)}
+    #statAcc .num{color:var(--ok)}
+
+    /* Typing area */
+    .type-wrap{position:relative}
+    .passage{
+      background:var(--panel);border:1px solid var(--border);border-radius:14px;
+      padding:1.2rem 1.3rem;font-size:1.3rem;line-height:2;letter-spacing:.01em;
+      font-family:'SFMono-Regular',ui-monospace,'Cascadia Code',Consolas,'Liberation Mono',monospace;
+      color:var(--untyped);min-height:140px;cursor:text;
+      user-select:none;-webkit-user-select:none;
+      transition:border-color .15s, box-shadow .15s;word-break:break-word;
+    }
+    .passage.focused{border-color:var(--accent);box-shadow:0 0 0 3px rgba(124,156,255,.16)}
+    .passage.blurred::after{
+      content:"Click here or start typing to focus";
+      position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+      background:rgba(15,19,32,.55);backdrop-filter:blur(2px);border-radius:14px;
+      color:var(--text);font-family:-apple-system,'Segoe UI',sans-serif;font-size:1rem;font-weight:600;
+    }
+    .passage .ch{position:relative;transition:color .05s}
+    .ch.correct{color:var(--text)}
+    .ch.incorrect{color:var(--err);background:var(--errbg);border-radius:3px}
+    .ch.incorrect.space{background:var(--errbg)}
+    .ch.current::before{
+      content:"";position:absolute;left:-1px;top:.18em;bottom:.18em;width:2px;
+      background:var(--caret);border-radius:2px;animation:blink 1s steps(1) infinite;
+    }
+    .passage.blurred .ch.current::before{animation:none;opacity:.4}
+    @keyframes blink{50%{opacity:0}}
+    #hiddenInput{position:absolute;opacity:0;left:-9999px;top:0;width:1px;height:1px}
+
+    .restart-row{display:flex;justify-content:center;margin-top:1rem;gap:.6rem}
+
+    /* Result panel */
+    .result{
+      margin-top:1.1rem;background:linear-gradient(180deg,var(--bg2),var(--panel));
+      border:1px solid var(--border);border-radius:16px;padding:1.3rem;display:none;
+    }
+    .result.show{display:block;animation:rise .35s ease}
+    @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+    .result h2{font-size:1.1rem;margin-bottom:.9rem;letter-spacing:-.01em}
+    .result h2 .badge{font-size:.72rem;font-weight:700;color:var(--ok);background:rgba(74,222,128,.14);padding:.15rem .5rem;border-radius:6px;margin-left:.5rem;vertical-align:middle}
+    .result-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;margin-bottom:1rem}
+    .rcell{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:.8rem;text-align:center}
+    .rcell .num{font-size:1.8rem;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+    .rcell .lbl{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:.35rem}
+    #rWpm{color:var(--accent2)} #rAcc{color:var(--ok)} #rChars{color:var(--accent)} #rBest{color:#fbbf24}
+    .share{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
+    .share-text{
+      flex:1;min-width:200px;background:var(--bg);border:1px dashed var(--border);
+      border-radius:9px;padding:.6rem .8rem;color:var(--muted);font-size:.9rem;
+    }
+    .toast{font-size:.82rem;color:var(--ok);min-height:1.1em;margin-top:.5rem}
+
+    /* Attribution / backlink */
+    .attribution{
+      text-align:center;margin-top:1.1rem;padding-top:.9rem;
+      border-top:1px solid var(--border);font-size:.85rem;
+    }
+    .attribution a{color:var(--muted);font-weight:600}
+    .attribution a:hover{color:var(--accent)}
+
+    @media (max-width:640px){
+      .passage{font-size:1.1rem;line-height:1.95;padding:1rem 1.05rem}
+      .result-grid{grid-template-columns:repeat(2,1fr)}
+      .stat .num{font-size:1.35rem}
+      .embed-wrap{padding:.8rem}
+    }
+  </style>
+</head>
+<body>
+  <div class="embed-wrap">
+    <div class="controls">
+      <div class="seg" id="modeSeg">
+        <span class="seg-label">Time</span>
+        <button data-dur="15">15s</button>
+        <button data-dur="30" class="active">30s</button>
+        <button data-dur="60">60s</button>
+      </div>
+      <div class="spacer"></div>
+      <button class="btn" id="newTextBtn" title="Load a different passage">New text</button>
+    </div>
+
+    <div class="stats">
+      <div class="stat" id="statTime"><div class="num" id="numTime">30</div><div class="lbl">Seconds left</div></div>
+      <div class="stat" id="statWpm"><div class="num" id="numWpm">0</div><div class="lbl">WPM</div></div>
+      <div class="stat" id="statAcc"><div class="num" id="numAcc">100%</div><div class="lbl">Accuracy</div></div>
+    </div>
+
+    <div class="type-wrap">
+      <div id="passage" class="passage blurred" tabindex="0" aria-label="Typing passage. Click and start typing."></div>
+      <input id="hiddenInput" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-hidden="true">
+    </div>
+
+    <div class="restart-row">
+      <button class="btn primary" id="restartBtn">Restart</button>
+    </div>
+
+    <div class="result" id="result" aria-live="polite">
+      <h2>Your result <span class="badge" id="pbBadge" style="display:none">New personal best!</span></h2>
+      <div class="result-grid">
+        <div class="rcell"><div class="num" id="rWpm">0</div><div class="lbl">WPM</div></div>
+        <div class="rcell"><div class="num" id="rAcc">0%</div><div class="lbl">Accuracy</div></div>
+        <div class="rcell"><div class="num" id="rChars">0</div><div class="lbl">Characters</div></div>
+        <div class="rcell"><div class="num" id="rBest">0</div><div class="lbl">Best WPM</div></div>
+      </div>
+      <div class="share">
+        <div class="share-text" id="shareText">I typed 0 WPM with 0% accuracy.</div>
+        <button class="btn" id="copyShareBtn">Copy result</button>
+        <button class="btn primary" id="tryAgainBtn">Try again</button>
+      </div>
+      <div class="toast" id="toast"></div>
+    </div>
+
+    <!-- Hidden element the shared engine references for personal-best display -->
+    <b id="headerBest" hidden></b>
+
+    <!-- Visible attribution backlink (real anchor, required for the widget) -->
+    <div class="attribution">
+      <a href="https://typing.quietools.com/" target="_blank" rel="noopener">⚡ Powered by typing.quietools.com</a>
+    </div>
+  </div>
+
+  <script>
+  window.TT_CONFIG = { testType: 'embed', duration: 30, bestKey: 'typetest_best_wpm' };
+  // Distinguish embedded loads in GA4 (linker + pages.dev guard already applied above).
+  (function(){
+    function fire(){ if (window.qtEvent) qtEvent('embed_view', { test_type: 'embed', embed_slug: 'wpm-test' }); }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fire);
+    else fire();
+  })();
+  </script>
+  <script src="/assets/typing-engine.js"></script>
+</body>
+</html>

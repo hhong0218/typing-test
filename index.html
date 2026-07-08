@@ -235,6 +235,21 @@
     .seo code{background:var(--panel);border:1px solid var(--border);border-radius:5px;padding:.05rem .35rem;font-size:.9em}
     .seo .faq dt{font-weight:700;color:var(--text);margin-top:1rem}
     .seo .faq dd{margin:.2rem 0 .6rem 0;color:var(--muted)}
+
+    /* Embed section */
+    .embed-box{
+      background:var(--panel);border:1px solid var(--border);border-radius:12px;
+      padding:1rem 1.1rem;margin:.6rem 0 1rem;
+    }
+    .embed-code{
+      display:block;width:100%;background:var(--bg);border:1px solid var(--border);
+      border-radius:8px;padding:.7rem .85rem;color:var(--text);font-size:.82rem;
+      font-family:'SFMono-Regular',ui-monospace,Consolas,monospace;resize:vertical;
+      min-height:70px;line-height:1.5;white-space:pre;overflow:auto;
+    }
+    .embed-actions{display:flex;gap:.6rem;align-items:center;margin-top:.7rem;flex-wrap:wrap}
+    .embed-toast{font-size:.82rem;color:var(--ok);min-height:1.1em}
+
     footer{border-top:1px solid var(--border);padding:2rem 1.5rem;text-align:center;color:var(--muted);font-size:.85rem;margin-top:3rem}
 
     @media (max-width:640px){
@@ -370,6 +385,17 @@
         <li><a href="/word-count-typing-test">Typing test by word count</a> — pick 10, 25, 50, or 100 words instead of a timer.</li>
       </ul>
 
+      <h2>Embed this typing test on your site</h2>
+      <p>Run a blog, school page, or resource site? Drop this free WPM typing test into any page with a single <code>&lt;iframe&gt;</code>. It works anywhere, needs no signup, and carries no ads. Copy the snippet below:</p>
+      <div class="embed-box">
+        <textarea class="embed-code" id="embedCode" readonly rows="3" aria-label="Embed code"><iframe src="https://typing.quietools.com/embed/wpm-test" width="100%" height="500" style="border:0" loading="lazy" title="WPM Typing Test"></iframe></textarea>
+        <div class="embed-actions">
+          <button class="btn primary" id="copyEmbedBtn">Copy embed code</button>
+          <a class="btn" href="/embed/wpm-test" target="_blank" rel="noopener">Preview widget</a>
+          <span class="embed-toast" id="embedToast" aria-live="polite"></span>
+        </div>
+      </div>
+
       <h2>Typing guides</h2>
       <p>Want to get faster? These free guides walk you through the techniques that actually move the needle:</p>
       <ul>
@@ -406,5 +432,26 @@
 
   <script>window.TT_CONFIG = { testType: 'speed', duration: 30, bestKey: 'typetest_best_wpm' };</script>
   <script src="/assets/typing-engine.js"></script>
+  <script>
+  // "Embed this test" — copy the iframe snippet to clipboard.
+  (function(){
+    var btn = document.getElementById('copyEmbedBtn');
+    var codeEl = document.getElementById('embedCode');
+    var toast = document.getElementById('embedToast');
+    if (!btn || !codeEl) return;
+    function done(){ if (toast){ toast.textContent = 'Copied! Paste it into your page.'; setTimeout(function(){ toast.textContent=''; }, 2500); } }
+    function fallbackCopy(){
+      codeEl.focus(); codeEl.select();
+      try{ document.execCommand('copy'); done(); }catch(e){ if (toast) toast.textContent='Press Ctrl+C to copy.'; }
+    }
+    btn.addEventListener('click', function(){
+      if (window.qtEvent) qtEvent('copy_embed', { test_type: 'speed', embed_slug: 'wpm-test' });
+      var text = codeEl.value;
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(done).catch(fallbackCopy);
+      } else { fallbackCopy(); }
+    });
+  })();
+  </script>
 </body>
 </html>
