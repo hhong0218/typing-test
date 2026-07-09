@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "typing-test-static",
+      "runtimeExecutable": "py",
+      "runtimeArgs": ["-m", "http.server", "8891"],
+      "port": 8891
+    }
+  ]
+}
